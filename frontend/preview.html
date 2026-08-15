@@ -1,0 +1,1404 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>Data Preview | Decision Intelligence</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
+}
+
+body{
+
+    min-height:100vh;
+
+    background:#07111f;
+
+    color:white;
+
+    padding:30px;
+
+}
+
+.container{
+
+    max-width:1250px;
+
+    margin:auto;
+
+}
+
+/* HEADER */
+
+.header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:30px;
+
+}
+
+.logo{
+
+    font-size:21px;
+
+    font-weight:bold;
+
+}
+
+.logo span{
+
+    color:#60a5fa;
+
+}
+
+.back{
+
+    color:#8fa0b6;
+
+    text-decoration:none;
+
+    font-size:13px;
+
+}
+
+.back:hover{
+
+    color:white;
+
+}
+
+/* TITLE */
+
+.title{
+
+    margin-bottom:25px;
+
+}
+
+.title h1{
+
+    font-size:29px;
+
+    margin-bottom:7px;
+
+}
+
+.title p{
+
+    color:#718198;
+
+    font-size:13px;
+
+}
+
+/* FILE BAR */
+
+.file-bar{
+
+    background:rgba(15,28,47,.85);
+
+    border:1px solid rgba(255,255,255,.07);
+
+    border-radius:12px;
+
+    padding:16px 20px;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:15px;
+
+    margin-bottom:18px;
+
+}
+
+.file-icon{
+
+    width:42px;
+
+    height:42px;
+
+    border-radius:9px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    background:rgba(37,99,235,.15);
+
+    color:#60a5fa;
+
+}
+
+.file-info{
+
+    flex:1;
+
+}
+
+.file-info strong{
+
+    display:block;
+
+    font-size:13px;
+
+    margin-bottom:4px;
+
+}
+
+.file-info small{
+
+    color:#64748b;
+
+    font-size:10px;
+
+}
+
+/* KPI */
+
+.stats{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(4,1fr);
+
+    gap:15px;
+
+    margin-bottom:18px;
+
+}
+
+.stat{
+
+    background:rgba(15,28,47,.85);
+
+    border:1px solid rgba(255,255,255,.07);
+
+    border-radius:12px;
+
+    padding:18px;
+
+    transition:.3s;
+
+}
+
+.stat:hover{
+
+    transform:translateY(-3px);
+
+    border-color:
+        rgba(96,165,250,.25);
+
+}
+
+.stat-label{
+
+    color:#64748b;
+
+    font-size:10px;
+
+    margin-bottom:9px;
+
+}
+
+.stat-value{
+
+    font-size:23px;
+
+    font-weight:bold;
+
+}
+
+/* MAIN GRID */
+
+.main-grid{
+
+    display:grid;
+
+    grid-template-columns:
+        1fr 280px;
+
+    gap:18px;
+
+}
+
+/* TABLE */
+
+.table-card{
+
+    background:rgba(15,28,47,.85);
+
+    border:1px solid rgba(255,255,255,.07);
+
+    border-radius:14px;
+
+    padding:20px;
+
+    overflow:hidden;
+
+}
+
+.card-header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:18px;
+
+}
+
+.card-header h2{
+
+    font-size:14px;
+
+}
+
+.card-header span{
+
+    color:#64748b;
+
+    font-size:10px;
+
+}
+
+.table-wrapper{
+
+    overflow-x:auto;
+
+}
+
+table{
+
+    width:100%;
+
+    border-collapse:collapse;
+
+    min-width:700px;
+
+}
+
+th{
+
+    text-align:left;
+
+    padding:11px;
+
+    background:rgba(255,255,255,.04);
+
+    color:#8fa0b6;
+
+    font-size:10px;
+
+    white-space:nowrap;
+
+}
+
+td{
+
+    padding:12px 11px;
+
+    border-bottom:
+        1px solid rgba(255,255,255,.05);
+
+    color:#b4c1d1;
+
+    font-size:10px;
+
+    white-space:nowrap;
+
+}
+
+tr:hover td{
+
+    background:rgba(255,255,255,.025);
+
+}
+
+/* VALIDATION */
+
+.validation{
+
+    background:rgba(15,28,47,.85);
+
+    border:1px solid rgba(255,255,255,.07);
+
+    border-radius:14px;
+
+    padding:20px;
+
+}
+
+.validation h2{
+
+    font-size:14px;
+
+    margin-bottom:20px;
+
+}
+
+.quality{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:14px;
+
+    padding-bottom:20px;
+
+    border-bottom:
+        1px solid rgba(255,255,255,.06);
+
+    margin-bottom:18px;
+
+}
+
+.circle{
+
+    width:65px;
+
+    height:65px;
+
+    border-radius:50%;
+
+    background:
+        conic-gradient(
+            #2563eb 0deg 331deg,
+            #1e293b 331deg
+        );
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    position:relative;
+
+}
+
+.circle::before{
+
+    content:"";
+
+    position:absolute;
+
+    width:51px;
+
+    height:51px;
+
+    border-radius:50%;
+
+    background:#0f1c2f;
+
+}
+
+.circle span{
+
+    position:relative;
+
+    font-size:12px;
+
+    font-weight:bold;
+
+}
+
+.quality-text strong{
+
+    display:block;
+
+    font-size:12px;
+
+    margin-bottom:5px;
+
+}
+
+.quality-text small{
+
+    color:#64748b;
+
+    font-size:9px;
+
+}
+
+/* CHECKS */
+
+.check{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:9px;
+
+    padding:10px 0;
+
+    border-bottom:
+        1px solid rgba(255,255,255,.04);
+
+}
+
+.check-icon{
+
+    width:20px;
+
+    height:20px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    border-radius:5px;
+
+    font-size:10px;
+
+}
+
+.good{
+
+    background:rgba(74,222,128,.1);
+
+    color:#4ade80;
+
+}
+
+.warning{
+
+    background:rgba(251,191,36,.1);
+
+    color:#fbbf24;
+
+}
+
+.check-text{
+
+    flex:1;
+
+    font-size:10px;
+
+    color:#8fa0b6;
+
+}
+
+.check-value{
+
+    font-size:9px;
+
+    color:#64748b;
+
+}
+
+/* COLUMN TYPES */
+
+.types{
+
+    margin-top:22px;
+
+}
+
+.types h3{
+
+    font-size:11px;
+
+    margin-bottom:12px;
+
+}
+
+.type{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    padding:7px 0;
+
+    color:#718198;
+
+    font-size:9px;
+
+}
+
+.type span:last-child{
+
+    color:#60a5fa;
+
+}
+
+/* BUTTONS */
+
+.actions{
+
+    display:flex;
+
+    justify-content:flex-end;
+
+    gap:10px;
+
+    margin-top:20px;
+
+}
+
+.btn{
+
+    padding:11px 17px;
+
+    border-radius:7px;
+
+    font-size:11px;
+
+    cursor:pointer;
+
+    font-weight:bold;
+
+}
+
+.secondary{
+
+    background:rgba(255,255,255,.04);
+
+    color:#9caec5;
+
+    border:
+        1px solid rgba(255,255,255,.08);
+
+}
+
+.primary{
+
+    background:#2563eb;
+
+    color:white;
+
+    border:none;
+
+}
+
+.primary:hover{
+
+    background:#3b82f6;
+
+    transform:translateY(-2px);
+
+}
+
+/* RESPONSIVE */
+
+@media(max-width:900px){
+
+    .stats{
+
+        grid-template-columns:
+            repeat(2,1fr);
+
+    }
+
+    .main-grid{
+
+        grid-template-columns:1fr;
+
+    }
+
+}
+
+@media(max-width:550px){
+
+    body{
+
+        padding:18px;
+
+    }
+
+    .stats{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .title h1{
+
+        font-size:24px;
+
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+
+    <!-- HEADER -->
+
+    <div class="header">
+
+        <div class="logo">
+
+            Decision<span>Intelligence</span>
+
+        </div>
+
+
+        <a href="upload.html"
+           class="back">
+
+            ← Back to Upload
+
+        </a>
+
+    </div>
+
+
+    <!-- TITLE -->
+
+    <div class="title">
+
+        <h1>
+
+            Data Preview & Validation
+
+        </h1>
+
+        <p>
+
+            Review your dataset before sending
+            it for intelligent analysis.
+
+        </p>
+
+    </div>
+
+
+    <!-- FILE -->
+
+    <div class="file-bar">
+
+
+        <div class="file-icon">
+
+            ▤
+
+        </div>
+
+
+        <div class="file-info">
+
+            <strong>
+
+                sales_business_data.xlsx
+
+            </strong>
+
+            <small>
+
+                Uploaded just now • Excel Workbook
+
+            </small>
+
+        </div>
+
+
+        <span style="
+            color:#4ade80;
+            font-size:10px;
+        ">
+
+            ✓ Ready
+
+        </span>
+
+
+    </div>
+
+
+    <!-- STATS -->
+
+    <div class="stats">
+
+
+        <div class="stat">
+
+            <div class="stat-label">
+
+                TOTAL ROWS
+
+            </div>
+
+            <div class="stat-value">
+
+                12,480
+
+            </div>
+
+        </div>
+
+
+        <div class="stat">
+
+            <div class="stat-label">
+
+                COLUMNS
+
+            </div>
+
+            <div class="stat-value">
+
+                8
+
+            </div>
+
+        </div>
+
+
+        <div class="stat">
+
+            <div class="stat-label">
+
+                MISSING VALUES
+
+            </div>
+
+            <div class="stat-value"
+                 style="color:#fbbf24;">
+
+                2.1%
+
+            </div>
+
+        </div>
+
+
+        <div class="stat">
+
+            <div class="stat-label">
+
+                DUPLICATES
+
+            </div>
+
+            <div class="stat-value"
+                 style="color:#4ade80;">
+
+                0.4%
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+    <!-- MAIN -->
+
+    <div class="main-grid">
+
+
+        <!-- TABLE -->
+
+        <div class="table-card">
+
+
+            <div class="card-header">
+
+                <div>
+
+                    <h2>
+
+                        Dataset Preview
+
+                    </h2>
+
+                    <span>
+
+                        Showing first 5 records
+
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="table-wrapper">
+
+
+                <table>
+
+
+                    <thead>
+
+                        <tr>
+
+                            <th>Region</th>
+
+                            <th>Product</th>
+
+                            <th>Category</th>
+
+                            <th>Sales</th>
+
+                            <th>Revenue</th>
+
+                            <th>Customer</th>
+
+                            <th>Date</th>
+
+                            <th>Status</th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody>
+
+
+                        <tr>
+
+                            <td>South</td>
+
+                            <td>Product A</td>
+
+                            <td>Electronics</td>
+
+                            <td>125</td>
+
+                            <td>₹45,000</td>
+
+                            <td>Customer 102</td>
+
+                            <td>2026-01-05</td>
+
+                            <td>Completed</td>
+
+                        </tr>
+
+
+                        <tr>
+
+                            <td>North</td>
+
+                            <td>Product B</td>
+
+                            <td>Software</td>
+
+                            <td>98</td>
+
+                            <td>₹31,200</td>
+
+                            <td>Customer 204</td>
+
+                            <td>2026-01-07</td>
+
+                            <td>Completed</td>
+
+                        </tr>
+
+
+                        <tr>
+
+                            <td>West</td>
+
+                            <td>Product A</td>
+
+                            <td>Electronics</td>
+
+                            <td>143</td>
+
+                            <td>₹52,800</td>
+
+                            <td>Customer 318</td>
+
+                            <td>2026-01-09</td>
+
+                            <td>Pending</td>
+
+                        </tr>
+
+
+                        <tr>
+
+                            <td>East</td>
+
+                            <td>Product C</td>
+
+                            <td>Services</td>
+
+                            <td>76</td>
+
+                            <td>₹27,600</td>
+
+                            <td>Customer 421</td>
+
+                            <td>2026-01-11</td>
+
+                            <td>Completed</td>
+
+                        </tr>
+
+
+                        <tr>
+
+                            <td>South</td>
+
+                            <td>Product D</td>
+
+                            <td>Accessories</td>
+
+                            <td>54</td>
+
+                            <td>₹18,900</td>
+
+                            <td>Customer 507</td>
+
+                            <td>2026-01-13</td>
+
+                            <td>Cancelled</td>
+
+                        </tr>
+
+
+                    </tbody>
+
+                </table>
+
+
+            </div>
+
+
+            <!-- ACTIONS -->
+
+            <div class="actions">
+
+
+                <button
+                    class="btn secondary"
+                    onclick="window.location.href='upload.html'">
+
+                    Upload Another
+
+                </button>
+
+
+                <!-- TODO:
+                     Connect this button to
+                     FastAPI analysis endpoint
+                -->
+
+                <button
+                    class="btn primary"
+                    id="analyseBtn">
+
+                    Continue to Analysis →
+
+                </button>
+
+
+            </div>
+
+
+        </div>
+
+
+        <!-- VALIDATION -->
+
+        <div class="validation">
+
+
+            <h2>
+
+                Data Quality
+
+            </h2>
+
+
+            <div class="quality">
+
+
+                <div class="circle">
+
+                    <span>
+
+                        92%
+
+                    </span>
+
+                </div>
+
+
+                <div class="quality-text">
+
+                    <strong>
+
+                        Good Dataset
+
+                    </strong>
+
+                    <small>
+
+                        Minor issues detected
+
+                    </small>
+
+                </div>
+
+
+            </div>
+
+
+            <!-- CHECKS -->
+
+
+            <div class="check">
+
+
+                <div class="check-icon good">
+
+                    ✓
+
+                </div>
+
+
+                <div class="check-text">
+
+                    File format
+
+                </div>
+
+
+                <div class="check-value">
+
+                    Valid
+
+                </div>
+
+            </div>
+
+
+            <div class="check">
+
+
+                <div class="check-icon good">
+
+                    ✓
+
+                </div>
+
+
+                <div class="check-text">
+
+                    Column structure
+
+                </div>
+
+
+                <div class="check-value">
+
+                    Valid
+
+                </div>
+
+            </div>
+
+
+            <div class="check">
+
+
+                <div class="check-icon warning">
+
+                    !
+
+                </div>
+
+
+                <div class="check-text">
+
+                    Missing values
+
+                </div>
+
+                <div class="check-value">
+
+                    2.1%
+
+                </div>
+
+            </div>
+
+
+            <div class="check">
+
+
+                <div class="check-icon good">
+
+                    ✓
+
+                </div>
+
+
+                <div class="check-text">
+
+                    Duplicate rows
+
+                </div>
+
+                <div class="check-value">
+
+                    0.4%
+
+                </div>
+
+            </div>
+
+
+            <!-- COLUMN TYPES -->
+
+            <div class="types">
+
+
+                <h3>
+
+                    DETECTED DATA TYPES
+
+                </h3>
+
+
+                <div class="type">
+
+                    <span>
+
+                        Text
+
+                    </span>
+
+                    <span>
+
+                        4 columns
+
+                    </span>
+
+                </div>
+
+
+                <div class="type">
+
+                    <span>
+
+                        Numeric
+
+                    </span>
+
+                    <span>
+
+                        2 columns
+
+                    </span>
+
+                </div>
+
+
+                <div class="type">
+
+                    <span>
+
+                        Date
+
+                    </span>
+
+                    <span>
+
+                        1 column
+
+                    </span>
+
+                </div>
+
+
+                <div class="type">
+
+                    <span>
+
+                        Boolean
+
+                    </span>
+
+                    <span>
+
+                        1 column
+
+                    </span>
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+
+</div>
+
+
+<script>
+
+
+/*
+====================================================
+
+TEMPORARY FRONTEND DATA
+
+The values shown on this page are demo values.
+
+Later the FastAPI backend will provide:
+
+- file name
+- row count
+- column count
+- column names
+- preview rows
+- missing values
+- duplicate count
+- data types
+- quality score
+
+====================================================
+*/
+
+
+/*
+====================================================
+
+TODO — FASTAPI CONNECTION
+
+When your friend gives the endpoint:
+
+Example:
+
+GET /api/data/preview/{dataset_id}
+
+The frontend will receive something similar to:
+
+{
+    "file_name": "sales_business_data.xlsx",
+
+    "rows": 12480,
+
+    "columns": 8,
+
+    "missing_percentage": 2.1,
+
+    "duplicate_percentage": 0.4,
+
+    "quality_score": 92,
+
+    "column_types": {
+
+        "text": 4,
+
+        "numeric": 2,
+
+        "date": 1,
+
+        "boolean": 1
+
+    },
+
+    "preview": [
+
+        {
+            "Region": "South",
+            "Product": "Product A",
+            "Sales": 125,
+            "Revenue": 45000
+        }
+
+    ]
+}
+
+====================================================
+*/
+
+
+/* ANALYSE BUTTON */
+
+document
+    .getElementById("analyseBtn")
+    .addEventListener(
+        "click",
+        function(){
+
+            /*
+            TEMPORARY ACTION
+
+            Later this button will call:
+
+            POST /api/data/analyse
+
+            */
+
+            this.innerText =
+                "Preparing Analysis...";
+
+            this.disabled = true;
+
+
+            setTimeout(() => {
+
+                alert(
+                    "Dataset is ready for analysis. FastAPI connection will be added next."
+                );
+
+
+                this.innerText =
+                    "Continue to Analysis →";
+
+                this.disabled = false;
+
+
+            }, 1200);
+
+        }
+    );
+
+
+</script>
+
+
+</body>
+
+</html>

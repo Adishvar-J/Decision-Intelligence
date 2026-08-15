@@ -1,0 +1,1643 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>AI Insights | Decision Intelligence</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
+}
+
+body{
+
+    min-height:100vh;
+
+    background:#07111f;
+
+    color:white;
+
+    padding:28px;
+
+}
+
+.container{
+
+    max-width:1250px;
+
+    margin:auto;
+
+}
+
+/* HEADER */
+
+.header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:30px;
+
+}
+
+.logo{
+
+    font-size:21px;
+
+    font-weight:bold;
+
+}
+
+.logo span{
+
+    color:#60a5fa;
+
+}
+
+.header-right{
+
+    display:flex;
+
+    gap:10px;
+
+    align-items:center;
+
+}
+
+.header-btn{
+
+    padding:9px 13px;
+
+    border-radius:7px;
+
+    border:1px solid rgba(255,255,255,.08);
+
+    background:rgba(255,255,255,.03);
+
+    color:#9caec5;
+
+    cursor:pointer;
+
+    font-size:10px;
+
+}
+
+.header-btn:hover{
+
+    color:white;
+
+    border-color:
+        rgba(96,165,250,.3);
+
+}
+
+/* TITLE */
+
+.title{
+
+    margin-bottom:24px;
+
+}
+
+.title h1{
+
+    font-size:30px;
+
+    margin-bottom:7px;
+
+}
+
+.title p{
+
+    color:#718198;
+
+    font-size:12px;
+
+}
+
+/* AI BANNER */
+
+.ai-banner{
+
+    position:relative;
+
+    overflow:hidden;
+
+    background:
+
+    linear-gradient(
+        120deg,
+        rgba(37,99,235,.16),
+        rgba(124,58,237,.12)
+    );
+
+    border:1px solid
+        rgba(96,165,250,.15);
+
+    border-radius:15px;
+
+    padding:22px;
+
+    margin-bottom:20px;
+
+}
+
+.ai-banner::after{
+
+    content:"";
+
+    position:absolute;
+
+    width:180px;
+
+    height:180px;
+
+    border-radius:50%;
+
+    background:#2563eb;
+
+    filter:blur(100px);
+
+    opacity:.13;
+
+    right:-50px;
+
+    top:-70px;
+
+}
+
+.ai-content{
+
+    position:relative;
+
+    z-index:1;
+
+}
+
+.ai-label{
+
+    color:#60a5fa;
+
+    font-size:9px;
+
+    font-weight:bold;
+
+    letter-spacing:1px;
+
+    margin-bottom:9px;
+
+}
+
+.ai-banner h2{
+
+    font-size:19px;
+
+    margin-bottom:7px;
+
+}
+
+.ai-banner p{
+
+    color:#718198;
+
+    font-size:10px;
+
+    max-width:700px;
+
+    line-height:1.6;
+
+}
+
+/* KPI */
+
+.metrics{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(4,1fr);
+
+    gap:14px;
+
+    margin-bottom:20px;
+
+}
+
+.metric{
+
+    background:rgba(15,28,47,.88);
+
+    border:1px solid
+        rgba(255,255,255,.07);
+
+    border-radius:12px;
+
+    padding:18px;
+
+    transition:.3s;
+
+}
+
+.metric:hover{
+
+    transform:translateY(-4px);
+
+    border-color:
+        rgba(96,165,250,.25);
+
+}
+
+.metric-label{
+
+    color:#64748b;
+
+    font-size:9px;
+
+    margin-bottom:9px;
+
+}
+
+.metric-value{
+
+    font-size:25px;
+
+    font-weight:bold;
+
+}
+
+.metric-change{
+
+    margin-top:7px;
+
+    font-size:9px;
+
+    color:#4ade80;
+
+}
+
+/* GRID */
+
+.grid{
+
+    display:grid;
+
+    grid-template-columns:
+        1.2fr .8fr;
+
+    gap:18px;
+
+}
+
+/* CARD */
+
+.card{
+
+    background:rgba(15,28,47,.88);
+
+    border:1px solid
+        rgba(255,255,255,.07);
+
+    border-radius:14px;
+
+    padding:20px;
+
+    margin-bottom:18px;
+
+}
+
+.card-header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:18px;
+
+}
+
+.card-header h2{
+
+    font-size:14px;
+
+}
+
+.card-header span{
+
+    color:#64748b;
+
+    font-size:9px;
+
+}
+
+/* INSIGHTS */
+
+.insight{
+
+    display:flex;
+
+    gap:13px;
+
+    padding:15px;
+
+    border-radius:10px;
+
+    background:rgba(255,255,255,.025);
+
+    border:1px solid
+        rgba(255,255,255,.04);
+
+    margin-bottom:10px;
+
+    transition:.3s;
+
+}
+
+.insight:hover{
+
+    transform:translateX(4px);
+
+    background:rgba(255,255,255,.04);
+
+}
+
+.insight-icon{
+
+    min-width:36px;
+
+    height:36px;
+
+    border-radius:8px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-size:16px;
+
+}
+
+.positive{
+
+    background:rgba(74,222,128,.1);
+
+    color:#4ade80;
+
+}
+
+.warning{
+
+    background:rgba(251,191,36,.1);
+
+    color:#fbbf24;
+
+}
+
+.info{
+
+    background:rgba(96,165,250,.1);
+
+    color:#60a5fa;
+
+}
+
+.insight-text{
+
+    flex:1;
+
+}
+
+.insight-text strong{
+
+    display:block;
+
+    font-size:11px;
+
+    margin-bottom:5px;
+
+}
+
+.insight-text p{
+
+    color:#718198;
+
+    font-size:9px;
+
+    line-height:1.5;
+
+}
+
+/* TREND */
+
+.trend-box{
+
+    height:220px;
+
+    position:relative;
+
+    overflow:hidden;
+
+    padding-top:10px;
+
+}
+
+.chart{
+
+    width:100%;
+
+    height:180px;
+
+    position:relative;
+
+}
+
+.grid-line{
+
+    position:absolute;
+
+    left:0;
+
+    right:0;
+
+    height:1px;
+
+    background:
+        rgba(255,255,255,.05);
+
+}
+
+.line{
+
+    position:absolute;
+
+    left:0;
+
+    right:0;
+
+    bottom:35px;
+
+    height:110px;
+
+}
+
+svg{
+
+    width:100%;
+
+    height:100%;
+
+}
+
+.chart-labels{
+
+    position:absolute;
+
+    bottom:5px;
+
+    left:0;
+
+    right:0;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    color:#475569;
+
+    font-size:8px;
+
+}
+
+/* RECOMMENDATION */
+
+.recommendation{
+
+    border-left:3px solid #60a5fa;
+
+    padding:15px;
+
+    background:rgba(96,165,250,.05);
+
+    border-radius:0 8px 8px 0;
+
+    margin-bottom:10px;
+
+}
+
+.recommendation strong{
+
+    display:block;
+
+    font-size:10px;
+
+    margin-bottom:6px;
+
+}
+
+.recommendation p{
+
+    color:#718198;
+
+    font-size:9px;
+
+    line-height:1.5;
+
+}
+
+/* ASK AI */
+
+.ask{
+
+    background:
+
+    linear-gradient(
+        145deg,
+        rgba(37,99,235,.10),
+        rgba(124,58,237,.07)
+    );
+
+}
+
+.ask h2{
+
+    font-size:14px;
+
+    margin-bottom:7px;
+
+}
+
+.ask-description{
+
+    color:#64748b;
+
+    font-size:9px;
+
+    line-height:1.5;
+
+    margin-bottom:15px;
+
+}
+
+.question-box{
+
+    display:flex;
+
+    gap:8px;
+
+}
+
+.question-box input{
+
+    flex:1;
+
+    padding:12px;
+
+    border-radius:7px;
+
+    border:1px solid
+        rgba(255,255,255,.08);
+
+    outline:none;
+
+    background:rgba(0,0,0,.18);
+
+    color:white;
+
+    font-size:10px;
+
+}
+
+.question-box input:focus{
+
+    border-color:#2563eb;
+
+}
+
+.ask-btn{
+
+    padding:0 15px;
+
+    border:none;
+
+    border-radius:7px;
+
+    background:#2563eb;
+
+    color:white;
+
+    cursor:pointer;
+
+    font-size:10px;
+
+    font-weight:bold;
+
+}
+
+.ask-btn:hover{
+
+    background:#3b82f6;
+
+}
+
+.answer{
+
+    display:none;
+
+    margin-top:15px;
+
+    padding:14px;
+
+    border-radius:8px;
+
+    background:rgba(255,255,255,.035);
+
+    border:1px solid
+        rgba(255,255,255,.05);
+
+}
+
+.answer-label{
+
+    color:#60a5fa;
+
+    font-size:8px;
+
+    font-weight:bold;
+
+    margin-bottom:7px;
+
+}
+
+.answer p{
+
+    color:#a8b5c7;
+
+    font-size:10px;
+
+    line-height:1.6;
+
+}
+
+/* FOOTER */
+
+.footer{
+
+    text-align:center;
+
+    color:#334155;
+
+    font-size:8px;
+
+    padding:12px;
+
+}
+
+/* RESPONSIVE */
+
+@media(max-width:900px){
+
+    .metrics{
+
+        grid-template-columns:
+            repeat(2,1fr);
+
+    }
+
+    .grid{
+
+        grid-template-columns:1fr;
+
+    }
+
+}
+
+@media(max-width:550px){
+
+    body{
+
+        padding:18px;
+
+    }
+
+    .metrics{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .title h1{
+
+        font-size:25px;
+
+    }
+
+    .question-box{
+
+        flex-direction:column;
+
+    }
+
+    .ask-btn{
+
+        padding:11px;
+
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+
+<!-- HEADER -->
+
+<div class="header">
+
+
+    <div class="logo">
+
+        Decision<span>Intelligence</span>
+
+    </div>
+
+
+    <div class="header-right">
+
+
+        <button
+            class="header-btn"
+            onclick="window.location.href='dashboard.html'">
+
+            Dashboard
+
+        </button>
+
+
+        <button
+            class="header-btn"
+            onclick="window.location.href='analysis.html'">
+
+            Re-analyse
+
+        </button>
+
+
+    </div>
+
+
+</div>
+
+
+<!-- TITLE -->
+
+<div class="title">
+
+    <h1>
+
+        AI Business Insights
+
+    </h1>
+
+    <p>
+
+        Intelligent findings generated from
+        your uploaded business data.
+
+    </p>
+
+</div>
+
+
+<!-- AI SUMMARY -->
+
+<div class="ai-banner">
+
+
+    <div class="ai-content">
+
+
+        <div class="ai-label">
+
+            ✦ AI ANALYSIS COMPLETE
+
+        </div>
+
+
+        <h2>
+
+            Your business is showing positive growth
+
+        </h2>
+
+
+        <p>
+
+            Based on the analysed dataset, revenue
+            and sales performance are trending upward.
+            However, an unusual decline has been detected
+            in one customer segment that may require
+            attention.
+
+        </p>
+
+
+    </div>
+
+
+</div>
+
+
+<!-- METRICS -->
+
+<div class="metrics">
+
+
+    <div class="metric">
+
+
+        <div class="metric-label">
+
+            TOTAL REVENUE
+
+        </div>
+
+
+        <div class="metric-value">
+
+            ₹18.4M
+
+        </div>
+
+
+        <div class="metric-change">
+
+            ↑ 18.5% vs previous period
+
+        </div>
+
+
+    </div>
+
+
+    <div class="metric">
+
+
+        <div class="metric-label">
+
+            TOTAL SALES
+
+        </div>
+
+
+        <div class="metric-value">
+
+            42,860
+
+        </div>
+
+
+        <div class="metric-change">
+
+            ↑ 12.8% vs previous period
+
+        </div>
+
+
+    </div>
+
+
+    <div class="metric">
+
+
+        <div class="metric-label">
+
+            TOP PRODUCT
+
+        </div>
+
+
+        <div class="metric-value">
+
+            Product A
+
+        </div>
+
+
+        <div class="metric-change">
+
+            27.4% of total revenue
+
+        </div>
+
+
+    </div>
+
+
+    <div class="metric">
+
+
+        <div class="metric-label">
+
+            DATA CONFIDENCE
+
+        </div>
+
+
+        <div class="metric-value">
+
+            92%
+
+        </div>
+
+
+        <div class="metric-change">
+
+            High confidence
+
+        </div>
+
+
+    </div>
+
+
+</div>
+
+
+<!-- MAIN GRID -->
+
+<div class="grid">
+
+
+<!-- LEFT -->
+
+<div>
+
+
+    <!-- TREND -->
+
+    <div class="card">
+
+
+        <div class="card-header">
+
+            <h2>
+
+                Revenue Trend
+
+            </h2>
+
+            <span>
+
+                Last 12 months
+
+            </span>
+
+        </div>
+
+
+        <div class="trend-box">
+
+
+            <div class="chart">
+
+
+                <div
+                    class="grid-line"
+                    style="top:10px;">
+
+                </div>
+
+
+                <div
+                    class="grid-line"
+                    style="top:55px;">
+
+                </div>
+
+
+                <div
+                    class="grid-line"
+                    style="top:100px;">
+
+                </div>
+
+
+                <div
+                    class="grid-line"
+                    style="top:145px;">
+
+                </div>
+
+
+                <div class="line">
+
+
+                    <svg
+                        viewBox="0 0 800 180"
+                        preserveAspectRatio="none">
+
+
+                        <defs>
+
+                            <linearGradient
+                                id="area"
+                                x1="0"
+                                y1="0"
+                                x2="0"
+                                y2="1">
+
+                                <stop
+                                    offset="0%"
+                                    stop-opacity=".25"/>
+
+                                <stop
+                                    offset="100%"
+                                    stop-opacity="0"/>
+
+                            </linearGradient>
+
+                        </defs>
+
+
+                        <path
+                            d="M0 135
+                               L70 125
+                               L140 132
+                               L210 105
+                               L280 112
+                               L350 90
+                               L420 95
+                               L490 70
+                               L560 80
+                               L630 48
+                               L700 55
+                               L800 20
+                               L800 180
+                               L0 180 Z"
+                            fill="url(#area)"/>
+
+
+                        <path
+                            d="M0 135
+                               L70 125
+                               L140 132
+                               L210 105
+                               L280 112
+                               L350 90
+                               L420 95
+                               L490 70
+                               L560 80
+                               L630 48
+                               L700 55
+                               L800 20"
+                            fill="none"
+                            stroke="#60a5fa"
+                            stroke-width="3"/>
+
+                    </svg>
+
+
+                </div>
+
+
+                <div class="chart-labels">
+
+                    <span>Jan</span>
+
+                    <span>Feb</span>
+
+                    <span>Mar</span>
+
+                    <span>Apr</span>
+
+                    <span>May</span>
+
+                    <span>Jun</span>
+
+                    <span>Jul</span>
+
+                    <span>Aug</span>
+
+                    <span>Sep</span>
+
+                    <span>Oct</span>
+
+                    <span>Nov</span>
+
+                    <span>Dec</span>
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+
+    <!-- INSIGHTS -->
+
+    <div class="card">
+
+
+        <div class="card-header">
+
+            <h2>
+
+                Key Insights
+
+            </h2>
+
+            <span>
+
+                AI detected
+
+            </span>
+
+        </div>
+
+
+        <div class="insight">
+
+
+            <div class="insight-icon positive">
+
+                ↑
+
+            </div>
+
+
+            <div class="insight-text">
+
+                <strong>
+
+                    Revenue growth accelerating
+
+                </strong>
+
+                <p>
+
+                    Revenue increased by 18.5% and
+                    growth has accelerated during the
+                    last three months.
+
+                </p>
+
+            </div>
+
+
+        </div>
+
+
+        <div class="insight">
+
+
+            <div class="insight-icon positive">
+
+                ◆
+
+            </div>
+
+
+            <div class="insight-text">
+
+                <strong>
+
+                    Product A is the strongest performer
+
+                </strong>
+
+                <p>
+
+                    Product A contributes approximately
+                    27.4% of total revenue and consistently
+                    outperforms other products.
+
+                </p>
+
+            </div>
+
+
+        </div>
+
+
+        <div class="insight">
+
+
+            <div class="insight-icon warning">
+
+                !
+
+            </div>
+
+
+            <div class="insight-text">
+
+                <strong>
+
+                    Customer segment decline detected
+
+                </strong>
+
+                <p>
+
+                    A customer segment has experienced
+                    a noticeable decrease in activity
+                    during the recent period.
+
+                </p>
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+
+</div>
+
+
+<!-- RIGHT -->
+
+<div>
+
+
+    <!-- RECOMMENDATIONS -->
+
+    <div class="card">
+
+
+        <div class="card-header">
+
+            <h2>
+
+                AI Recommendations
+
+            </h2>
+
+            <span>
+
+                Priority
+
+            </span>
+
+        </div>
+
+
+        <div class="recommendation">
+
+
+            <strong>
+
+                Focus on Product A
+
+            </strong>
+
+
+            <p>
+
+                Consider increasing inventory and
+                marketing resources for the highest
+                performing product.
+
+            </p>
+
+        </div>
+
+
+        <div class="recommendation">
+
+
+            <strong>
+
+                Investigate customer decline
+
+            </strong>
+
+
+            <p>
+
+                Analyse the affected customer segment
+                to understand the reason behind the
+                recent decline.
+
+            </p>
+
+        </div>
+
+
+        <div class="recommendation">
+
+
+            <strong>
+
+                Expand high-growth regions
+
+            </strong>
+
+
+            <p>
+
+                Regions showing consistent growth
+                could provide opportunities for
+                expansion.
+
+            </p>
+
+        </div>
+
+
+    </div>
+
+
+    <!-- ASK AI -->
+
+    <div class="card ask">
+
+
+        <h2>
+
+            ✦ Ask Your Data
+
+        </h2>
+
+
+        <p class="ask-description">
+
+            Ask questions about your uploaded data
+            using natural language.
+
+        </p>
+
+
+        <div class="question-box">
+
+
+            <input
+                type="text"
+                id="question"
+                placeholder="e.g. Which region generated the highest revenue?">
+
+
+            <button
+                class="ask-btn"
+                id="askBtn">
+
+                Ask AI
+
+            </button>
+
+
+        </div>
+
+
+        <div
+            class="answer"
+            id="answer">
+
+
+            <div class="answer-label">
+
+                AI RESPONSE
+
+            </div>
+
+
+            <p id="answerText">
+
+                Based on the analysed dataset,
+                the South region generated the
+                highest revenue during the selected
+                period.
+
+            </p>
+
+
+        </div>
+
+
+    </div>
+
+
+</div>
+
+
+</div>
+
+
+<div class="footer">
+
+    Decision Intelligence • AI-powered business analytics
+
+</div>
+
+
+</div>
+
+
+<script>
+
+
+/*
+====================================================
+
+ASK YOUR DATA — TEMPORARY DEMO
+
+This currently displays a demo response.
+
+Later it will send the question to the
+FastAPI + AI backend.
+
+====================================================
+*/
+
+
+const askBtn =
+    document.getElementById("askBtn");
+
+const question =
+    document.getElementById("question");
+
+const answer =
+    document.getElementById("answer");
+
+const answerText =
+    document.getElementById("answerText");
+
+
+askBtn.addEventListener(
+    "click",
+    function(){
+
+        const q =
+            question.value.trim();
+
+
+        if(!q){
+
+            alert(
+                "Please enter a question about your data."
+            );
+
+            return;
+
+        }
+
+
+        askBtn.innerText =
+            "Thinking...";
+
+        askBtn.disabled =
+            true;
+
+
+        /*
+        TODO — FASTAPI / AI CONNECTION
+
+        Later:
+
+        fetch(
+            "YOUR_FASTAPI_AI_ENDPOINT",
+            {
+                method:"POST",
+
+                headers:{
+                    "Content-Type":
+                    "application/json"
+                },
+
+                body:JSON.stringify({
+
+                    dataset_id:
+                    "DATASET_ID",
+
+                    question:q
+
+                })
+            }
+        )
+
+        .then(response =>
+            response.json()
+        )
+
+        .then(data => {
+
+            answerText.innerText =
+                data.answer;
+
+        });
+
+        */
+
+
+        setTimeout(
+            function(){
+
+                answer.style.display =
+                    "block";
+
+
+                answerText.innerText =
+                    "Based on the analysed dataset, the South region generated the highest revenue during the selected period.";
+
+
+                askBtn.innerText =
+                    "Ask AI";
+
+                askBtn.disabled =
+                    false;
+
+            },
+            1000
+        );
+
+    }
+);
+
+
+/* ENTER KEY */
+
+question.addEventListener(
+    "keydown",
+    function(event){
+
+        if(event.key === "Enter"){
+
+            askBtn.click();
+
+        }
+
+    }
+);
+
+
+/* ANIMATE METRICS */
+
+const values =
+    document.querySelectorAll(
+        ".metric-value"
+    );
+
+
+values.forEach(
+    (element,index) => {
+
+        element.style.opacity = "0";
+
+        element.style.transform =
+            "translateY(15px)";
+
+
+        setTimeout(
+            function(){
+
+                element.style.transition =
+                    "all .6s ease";
+
+                element.style.opacity = "1";
+
+                element.style.transform =
+                    "translateY(0)";
+
+            },
+            150 + (index * 120)
+        );
+
+    }
+);
+
+</script>
+
+
+</body>
+
+</html>

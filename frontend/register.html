@@ -1,0 +1,1101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Create Account | Decision Intelligence</title>
+
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+
+        body {
+
+            min-height: 100vh;
+
+            background: #07111f;
+
+            color: white;
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            padding: 40px 20px;
+
+            overflow-x: hidden;
+        }
+
+
+        /* Background glow */
+
+        body::before {
+
+            content: "";
+
+            position: fixed;
+
+            width: 450px;
+            height: 450px;
+
+            background: #2563eb;
+
+            filter: blur(180px);
+
+            opacity: 0.18;
+
+            top: -180px;
+            left: -120px;
+
+            z-index: -1;
+        }
+
+
+        body::after {
+
+            content: "";
+
+            position: fixed;
+
+            width: 400px;
+            height: 400px;
+
+            background: #7c3aed;
+
+            filter: blur(180px);
+
+            opacity: 0.15;
+
+            right: -150px;
+            bottom: -150px;
+
+            z-index: -1;
+        }
+
+
+        /* Main card */
+
+        .container {
+
+            width: 900px;
+
+            max-width: 100%;
+
+            display: grid;
+
+            grid-template-columns: 0.9fr 1.1fr;
+
+            background: rgba(15, 28, 47, 0.9);
+
+            border: 1px solid rgba(255,255,255,0.1);
+
+            border-radius: 22px;
+
+            overflow: hidden;
+
+            box-shadow:
+                0 30px 80px rgba(0,0,0,0.45);
+
+            animation: appear 0.7s ease;
+
+            position: relative;
+
+            z-index: 1;
+        }
+
+
+        /* Left side */
+
+        .info {
+
+            padding: 50px 40px;
+
+            display: flex;
+
+            flex-direction: column;
+
+            justify-content: center;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(37,99,235,0.18),
+                    rgba(124,58,237,0.08)
+                );
+        }
+
+
+        .logo {
+
+            font-size: 23px;
+
+            font-weight: bold;
+
+            margin-bottom: 45px;
+        }
+
+
+        .logo span {
+
+            color: #60a5fa;
+        }
+
+
+        .info h1 {
+
+            font-size: 38px;
+
+            line-height: 1.1;
+
+            margin-bottom: 18px;
+        }
+
+
+        .info h1 span {
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #60a5fa,
+                    #a78bfa
+                );
+
+            -webkit-background-clip: text;
+
+            color: transparent;
+        }
+
+
+        .info p {
+
+            color: #9caec5;
+
+            font-size: 15px;
+
+            line-height: 1.7;
+
+            max-width: 350px;
+        }
+
+
+        .benefits {
+
+            margin-top: 35px;
+        }
+
+
+        .benefit {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+
+            margin-bottom: 16px;
+
+            color: #c8d4e5;
+
+            font-size: 14px;
+        }
+
+
+        .icon {
+
+            width: 28px;
+
+            height: 28px;
+
+            border-radius: 50%;
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            background: rgba(37,99,235,0.18);
+
+            color: #60a5fa;
+
+            font-size: 13px;
+        }
+
+
+        /* Form section */
+
+        .form-box {
+
+            padding: 45px;
+
+            display: flex;
+
+            flex-direction: column;
+
+            justify-content: center;
+        }
+
+
+        .form-box h2 {
+
+            font-size: 29px;
+
+            margin-bottom: 8px;
+        }
+
+
+        .subtitle {
+
+            color: #7f91a9;
+
+            font-size: 14px;
+
+            margin-bottom: 25px;
+        }
+
+
+        /* Inputs */
+
+        .input-group {
+
+            margin-bottom: 16px;
+        }
+
+
+        .input-group label {
+
+            display: block;
+
+            font-size: 13px;
+
+            color: #c8d4e5;
+
+            margin-bottom: 7px;
+        }
+
+
+        .input-wrapper {
+
+            position: relative;
+        }
+
+
+        .input-wrapper input {
+
+            width: 100%;
+
+            padding: 12px 14px;
+
+            background: rgba(255,255,255,0.05);
+
+            border: 1px solid rgba(255,255,255,0.1);
+
+            border-radius: 8px;
+
+            outline: none;
+
+            color: white;
+
+            font-size: 14px;
+
+            transition: 0.3s;
+        }
+
+
+        .input-wrapper input:focus {
+
+            border-color: #3b82f6;
+
+            box-shadow:
+                0 0 0 3px rgba(37,99,235,0.12);
+        }
+
+
+        .input-wrapper input::placeholder {
+
+            color: #64748b;
+        }
+
+
+        /* Password */
+
+        .show-password {
+
+            position: absolute;
+
+            right: 12px;
+
+            top: 50%;
+
+            transform: translateY(-50%);
+
+            border: none;
+
+            background: none;
+
+            color: #7f91a9;
+
+            cursor: pointer;
+
+            font-size: 12px;
+        }
+
+
+        .show-password:hover {
+
+            color: white;
+        }
+
+
+        /* Password strength */
+
+        .strength {
+
+            height: 4px;
+
+            background: #1e293b;
+
+            border-radius: 10px;
+
+            margin-top: 8px;
+
+            overflow: hidden;
+        }
+
+
+        .strength-bar {
+
+            height: 100%;
+
+            width: 0%;
+
+            border-radius: 10px;
+
+            transition: 0.3s;
+        }
+
+
+        .strength-text {
+
+            margin-top: 5px;
+
+            font-size: 11px;
+
+            color: #718198;
+        }
+
+
+        /* Terms */
+
+        .terms {
+
+            display: flex;
+
+            gap: 8px;
+
+            align-items: flex-start;
+
+            color: #7f91a9;
+
+            font-size: 12px;
+
+            line-height: 1.5;
+
+            margin: 12px 0 20px;
+        }
+
+
+        .terms input {
+
+            margin-top: 2px;
+        }
+
+
+        .terms a {
+
+            color: #60a5fa;
+
+            text-decoration: none;
+        }
+
+
+        /* Create button */
+
+        .create-btn {
+
+            width: 100%;
+
+            padding: 14px;
+
+            border: none;
+
+            border-radius: 8px;
+
+            background: #2563eb;
+
+            color: white;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+            transition: 0.3s;
+
+            box-shadow:
+                0 10px 25px rgba(37,99,235,0.25);
+        }
+
+
+        .create-btn:hover {
+
+            background: #3b82f6;
+
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 15px 30px rgba(37,99,235,0.4);
+        }
+
+
+        /* Login link */
+
+        .login-link {
+
+            text-align: center;
+
+            margin-top: 20px;
+
+            color: #7f91a9;
+
+            font-size: 13px;
+        }
+
+
+        .login-link a {
+
+            color: #60a5fa;
+
+            text-decoration: none;
+
+            font-weight: bold;
+        }
+
+
+        .login-link a:hover {
+
+            text-decoration: underline;
+        }
+
+
+        /* Back */
+
+        .back {
+
+            position: fixed;
+
+            top: 25px;
+
+            left: 30px;
+
+            color: #8fa0b6;
+
+            text-decoration: none;
+
+            font-size: 13px;
+
+            z-index: 10;
+        }
+
+
+        .back:hover {
+
+            color: white;
+        }
+
+
+        /* Animation */
+
+        @keyframes appear {
+
+            from {
+
+                opacity: 0;
+
+                transform:
+                    translateY(25px)
+                    scale(0.98);
+            }
+
+            to {
+
+                opacity: 1;
+
+                transform:
+                    translateY(0)
+                    scale(1);
+            }
+        }
+
+
+        /* Mobile */
+
+        @media(max-width: 750px) {
+
+            .container {
+
+                grid-template-columns: 1fr;
+            }
+
+
+            .info {
+
+                padding: 35px 30px;
+            }
+
+
+            .form-box {
+
+                padding: 35px 30px;
+            }
+
+
+            .benefits {
+
+                display: none;
+            }
+
+
+            .info h1 {
+
+                font-size: 32px;
+            }
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- Back -->
+
+    <a href="index.html" class="back">
+        ← Back to Home
+    </a>
+
+
+    <div class="container">
+
+
+        <!-- Information -->
+
+        <div class="info">
+
+
+            <div class="logo">
+
+                Decision<span>Intelligence</span>
+
+            </div>
+
+
+            <h1>
+
+                Build Smarter.
+                <span>Decide Better.</span>
+
+            </h1>
+
+
+            <p>
+
+                Create your personal Decision Intelligence
+                workspace and transform your business data
+                into meaningful insights.
+
+            </p>
+
+
+            <div class="benefits">
+
+
+                <div class="benefit">
+
+                    <div class="icon">
+                        ✓
+                    </div>
+
+                    Personal data workspace
+
+                </div>
+
+
+                <div class="benefit">
+
+                    <div class="icon">
+                        ✓
+                    </div>
+
+                    Interactive business analytics
+
+                </div>
+
+
+                <div class="benefit">
+
+                    <div class="icon">
+                        ✓
+                    </div>
+
+                    AI-powered decision support
+
+                </div>
+
+
+                <div class="benefit">
+
+                    <div class="icon">
+                        ✓
+                    </div>
+
+                    Ask questions using natural language
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+
+        <!-- Registration form -->
+
+        <div class="form-box">
+
+
+            <h2>
+                Create Account
+            </h2>
+
+
+            <p class="subtitle">
+                Start exploring your business data today.
+            </p>
+
+
+            <form id="registerForm">
+
+
+                <!-- Name -->
+
+                <div class="input-group">
+
+                    <label for="name">
+                        Full Name
+                    </label>
+
+                    <div class="input-wrapper">
+
+                        <input
+                            type="text"
+                            id="name"
+                            placeholder="Enter your full name"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <!-- Email -->
+
+                <div class="input-group">
+
+                    <label for="email">
+                        Gmail / Email Address
+                    </label>
+
+                    <div class="input-wrapper">
+
+                        <input
+                            type="email"
+                            id="email"
+                            placeholder="you@gmail.com"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <!-- Password -->
+
+                <div class="input-group">
+
+                    <label for="password">
+                        Password
+                    </label>
+
+                    <div class="input-wrapper">
+
+                        <input
+                            type="password"
+                            id="password"
+                            placeholder="Create a strong password"
+                            required
+                            minlength="8"
+                        >
+
+                        <button
+                            type="button"
+                            class="show-password"
+                            onclick="togglePassword('password', this)"
+                        >
+                            Show
+                        </button>
+
+                    </div>
+
+
+                    <div class="strength">
+
+                        <div
+                            class="strength-bar"
+                            id="strengthBar">
+                        </div>
+
+                    </div>
+
+
+                    <div
+                        class="strength-text"
+                        id="strengthText">
+
+                        Password strength
+
+                    </div>
+
+                </div>
+
+
+                <!-- Confirm password -->
+
+                <div class="input-group">
+
+                    <label for="confirmPassword">
+                        Confirm Password
+                    </label>
+
+                    <div class="input-wrapper">
+
+                        <input
+                            type="password"
+                            id="confirmPassword"
+                            placeholder="Re-enter your password"
+                            required
+                        >
+
+                        <button
+                            type="button"
+                            class="show-password"
+                            onclick="togglePassword('confirmPassword', this)"
+                        >
+                            Show
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Terms -->
+
+                <label class="terms">
+
+                    <input
+                        type="checkbox"
+                        id="terms"
+                        required
+                    >
+
+                    <span>
+
+                        I agree to the
+                        <a href="#">
+                            Terms of Service
+                        </a>
+                        and
+                        <a href="#">
+                            Privacy Policy
+                        </a>.
+
+                    </span>
+
+                </label>
+
+
+                <!-- Button -->
+
+                <button
+                    type="submit"
+                    class="create-btn">
+
+                    Create Account
+
+                </button>
+
+
+            </form>
+
+
+            <div class="login-link">
+
+                Already have an account?
+
+                <!-- TODO:
+                Connect to login.html
+                -->
+
+                <a href="login.html">
+                    Sign In
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <script>
+
+
+        /* ==========================================
+           PASSWORD SHOW / HIDE
+        ========================================== */
+
+        function togglePassword(
+            inputId,
+            button
+        ) {
+
+            const input =
+                document.getElementById(inputId);
+
+
+            if (input.type === "password") {
+
+                input.type = "text";
+
+                button.innerText = "Hide";
+
+            } else {
+
+                input.type = "password";
+
+                button.innerText = "Show";
+
+            }
+
+        }
+
+
+        /* ==========================================
+           PASSWORD STRENGTH
+        ========================================== */
+
+        const password =
+            document.getElementById("password");
+
+        const strengthBar =
+            document.getElementById("strengthBar");
+
+        const strengthText =
+            document.getElementById("strengthText");
+
+
+        password.addEventListener(
+            "input",
+            function() {
+
+                const value =
+                    password.value;
+
+                let strength = 0;
+
+
+                if (value.length >= 8) {
+                    strength++;
+                }
+
+
+                if (/[A-Z]/.test(value)) {
+                    strength++;
+                }
+
+
+                if (/[0-9]/.test(value)) {
+                    strength++;
+                }
+
+
+                if (/[^A-Za-z0-9]/.test(value)) {
+                    strength++;
+                }
+
+
+                if (strength === 0) {
+
+                    strengthBar.style.width = "0%";
+
+                    strengthText.innerText =
+                        "Password strength";
+
+                }
+
+                else if (strength <= 1) {
+
+                    strengthBar.style.width = "25%";
+
+                    strengthText.innerText =
+                        "Weak password";
+
+                }
+
+                else if (strength === 2) {
+
+                    strengthBar.style.width = "50%";
+
+                    strengthText.innerText =
+                        "Medium password";
+
+                }
+
+                else if (strength === 3) {
+
+                    strengthBar.style.width = "75%";
+
+                    strengthText.innerText =
+                        "Good password";
+
+                }
+
+                else {
+
+                    strengthBar.style.width = "100%";
+
+                    strengthText.innerText =
+                        "Strong password";
+
+                }
+
+            }
+        );
+
+
+        /* ==========================================
+           REGISTRATION FORM
+        ========================================== */
+
+        document
+            .getElementById("registerForm")
+            .addEventListener(
+                "submit",
+                function(event) {
+
+                    event.preventDefault();
+
+
+                    const passwordValue =
+                        document.getElementById(
+                            "password"
+                        ).value;
+
+
+                    const confirmPasswordValue =
+                        document.getElementById(
+                            "confirmPassword"
+                        ).value;
+
+
+                    /* Password matching */
+
+                    if (
+                        passwordValue !==
+                        confirmPasswordValue
+                    ) {
+
+                        alert(
+                            "Passwords do not match."
+                        );
+
+                        return;
+
+                    }
+
+
+                    /*
+                    ==========================================
+                    TODO:
+
+                    Connect registration form to FastAPI.
+
+                    Data to send later:
+
+                    name
+                    email
+                    password
+
+                    Example:
+
+                    fetch("YOUR_FASTAPI_REGISTER_ENDPOINT", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({
+                            name: name,
+                            email: email,
+                            password: password
+                        })
+                    });
+
+                    The backend will then create the
+                    user's account and separate data space.
+
+                    ==========================================
+                    */
+
+
+                    alert(
+                        "Registration API is not connected yet.\n\n" +
+                        "The frontend is ready for backend integration."
+                    );
+
+                }
+            );
+
+    </script>
+
+
+</body>
+
+</html>

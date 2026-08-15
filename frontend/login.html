@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Sign In | Decision Intelligence</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: #07111f;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        /* Background glow */
+
+        body::before {
+            content: "";
+            position: fixed;
+            width: 450px;
+            height: 450px;
+            background: #2563eb;
+            filter: blur(180px);
+            opacity: 0.18;
+            top: -180px;
+            left: -120px;
+        }
+
+        body::after {
+            content: "";
+            position: fixed;
+            width: 400px;
+            height: 400px;
+            background: #7c3aed;
+            filter: blur(180px);
+            opacity: 0.15;
+            right: -150px;
+            bottom: -150px;
+        }
+
+        /* Main container */
+
+        .container {
+            width: 900px;
+            max-width: 92%;
+            min-height: 540px;
+
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+
+            background: rgba(15, 28, 47, 0.88);
+
+            border: 1px solid rgba(255,255,255,0.1);
+
+            border-radius: 22px;
+
+            overflow: hidden;
+
+            box-shadow:
+                0 30px 80px rgba(0,0,0,0.45);
+
+            position: relative;
+
+            z-index: 1;
+
+            animation: appear 0.8s ease;
+        }
+
+        /* Left section */
+
+        .info {
+            padding: 55px 45px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(37,99,235,0.18),
+                    rgba(124,58,237,0.08)
+                );
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 45px;
+        }
+
+        .logo span {
+            color: #60a5fa;
+        }
+
+        .info h1 {
+            font-size: 40px;
+            line-height: 1.1;
+            margin-bottom: 20px;
+        }
+
+        .info h1 span {
+            background: linear-gradient(
+                90deg,
+                #60a5fa,
+                #a78bfa
+            );
+
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+
+        .info p {
+            color: #9caec5;
+            line-height: 1.7;
+            font-size: 15px;
+            max-width: 360px;
+        }
+
+        .features {
+            margin-top: 35px;
+        }
+
+        .feature {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 15px;
+            color: #c8d4e5;
+            font-size: 14px;
+        }
+
+        .check {
+            width: 25px;
+            height: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 50%;
+
+            background: rgba(37,99,235,0.2);
+
+            color: #60a5fa;
+        }
+
+        /* Login section */
+
+        .login-box {
+            padding: 55px 45px;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .login-box h2 {
+            font-size: 30px;
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            color: #7f91a9;
+            font-size: 14px;
+            margin-bottom: 30px;
+        }
+
+        /* Input */
+
+        .input-group {
+            margin-bottom: 18px;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 13px;
+            color: #c8d4e5;
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        .input-wrapper input {
+            width: 100%;
+
+            padding: 13px 14px;
+
+            border-radius: 8px;
+
+            border: 1px solid rgba(255,255,255,0.1);
+
+            outline: none;
+
+            background: rgba(255,255,255,0.05);
+
+            color: white;
+
+            font-size: 14px;
+
+            transition: 0.3s;
+        }
+
+        .input-wrapper input:focus {
+            border-color: #3b82f6;
+
+            box-shadow:
+                0 0 0 3px rgba(37,99,235,0.12);
+        }
+
+        .input-wrapper input::placeholder {
+            color: #64748b;
+        }
+
+        /* Password */
+
+        .password-toggle {
+            position: absolute;
+
+            right: 12px;
+            top: 50%;
+
+            transform: translateY(-50%);
+
+            border: none;
+
+            background: none;
+
+            color: #7f91a9;
+
+            cursor: pointer;
+
+            font-size: 12px;
+        }
+
+        .password-toggle:hover {
+            color: white;
+        }
+
+        /* Options */
+
+        .options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            margin: 5px 0 25px;
+
+            font-size: 12px;
+        }
+
+        .remember {
+            display: flex;
+            gap: 7px;
+            align-items: center;
+            color: #8fa0b6;
+        }
+
+        .forgot {
+            color: #60a5fa;
+            text-decoration: none;
+        }
+
+        .forgot:hover {
+            text-decoration: underline;
+        }
+
+        /* Login button */
+
+        .login-btn {
+            width: 100%;
+
+            padding: 14px;
+
+            border: none;
+
+            border-radius: 8px;
+
+            background: #2563eb;
+
+            color: white;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+            transition: 0.3s;
+
+            box-shadow:
+                0 10px 25px rgba(37,99,235,0.25);
+        }
+
+        .login-btn:hover {
+            background: #3b82f6;
+
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 15px 30px rgba(37,99,235,0.4);
+        }
+
+        /* Register */
+
+        .register {
+            text-align: center;
+
+            margin-top: 25px;
+
+            color: #7f91a9;
+
+            font-size: 13px;
+        }
+
+        .register a {
+            color: #60a5fa;
+
+            text-decoration: none;
+
+            font-weight: bold;
+        }
+
+        .register a:hover {
+            text-decoration: underline;
+        }
+
+        /* Back */
+
+        .back {
+            position: fixed;
+
+            top: 25px;
+            left: 30px;
+
+            color: #8fa0b6;
+
+            text-decoration: none;
+
+            font-size: 13px;
+
+            z-index: 10;
+
+            transition: 0.3s;
+        }
+
+        .back:hover {
+            color: white;
+        }
+
+        /* Animation */
+
+        @keyframes appear {
+
+            from {
+                opacity: 0;
+                transform: translateY(25px) scale(0.98);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+
+        }
+
+        /* Mobile */
+
+        @media(max-width: 750px) {
+
+            body {
+                overflow-y: auto;
+                padding: 40px 0;
+            }
+
+            .container {
+                grid-template-columns: 1fr;
+            }
+
+            .info {
+                padding: 40px 30px;
+            }
+
+            .login-box {
+                padding: 40px 30px;
+            }
+
+            .info h1 {
+                font-size: 32px;
+            }
+
+            .features {
+                display: none;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- Back button -->
+
+    <!-- TODO: Connect this button to index.html -->
+
+    <a href="index.html" class="back">
+        ← Back to Home
+    </a>
+
+
+    <div class="container">
+
+
+        <!-- Left information -->
+
+        <div class="info">
+
+            <div class="logo">
+                Decision<span>Intelligence</span>
+            </div>
+
+            <h1>
+                Welcome
+                <span>Back.</span>
+            </h1>
+
+            <p>
+                Sign in to access your business intelligence
+                dashboard and continue making smarter,
+                data-driven decisions.
+            </p>
+
+
+            <div class="features">
+
+                <div class="feature">
+
+                    <div class="check">
+                        ✓
+                    </div>
+
+                    Secure personal data
+
+                </div>
+
+
+                <div class="feature">
+
+                    <div class="check">
+                        ✓
+                    </div>
+
+                    Intelligent analytics
+
+                </div>
+
+
+                <div class="feature">
+
+                    <div class="check">
+                        ✓
+                    </div>
+
+                    AI-powered insights
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Login -->
+
+        <div class="login-box">
+
+            <h2>
+                Sign In
+            </h2>
+
+            <p class="subtitle">
+                Enter your account details to continue.
+            </p>
+
+
+            <form id="loginForm">
+
+
+                <!-- Email -->
+
+                <div class="input-group">
+
+                    <label for="email">
+                        Email Address
+                    </label>
+
+                    <div class="input-wrapper">
+
+                        <input
+                            type="email"
+                            id="email"
+                            placeholder="you@example.com"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <!-- Password -->
+
+                <div class="input-group">
+
+                    <label for="password">
+                        Password
+                    </label>
+
+                    <div class="input-wrapper">
+
+                        <input
+                            type="password"
+                            id="password"
+                            placeholder="Enter your password"
+                            required
+                        >
+
+                        <button
+                            type="button"
+                            class="password-toggle"
+                            onclick="togglePassword()"
+                        >
+                            Show
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Options -->
+
+                <div class="options">
+
+                    <label class="remember">
+
+                        <input
+                            type="checkbox"
+                            id="remember"
+                        >
+
+                        Remember me
+
+                    </label>
+
+
+                    <!-- TODO:
+                    Connect to password recovery system
+                    -->
+
+                    <a
+                        href="#"
+                        class="forgot"
+                    >
+                        Forgot Password?
+                    </a>
+
+                </div>
+
+
+                <!-- Login -->
+
+                <button
+                    type="submit"
+                    class="login-btn"
+                >
+                    Sign In
+                </button>
+
+
+            </form>
+
+
+            <div class="register">
+
+                Don't have an account?
+
+                <!-- TODO:
+                Connect to register.html
+                -->
+
+                <a href="#">
+                    Create Account
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <script>
+
+
+        /* ==========================================
+           PASSWORD VISIBILITY
+        ========================================== */
+
+        function togglePassword() {
+
+            const password =
+                document.getElementById("password");
+
+            const button =
+                document.querySelector(".password-toggle");
+
+
+            if (password.type === "password") {
+
+                password.type = "text";
+
+                button.innerText = "Hide";
+
+            } else {
+
+                password.type = "password";
+
+                button.innerText = "Show";
+
+            }
+
+        }
+
+
+        /* ==========================================
+           TEMPORARY LOGIN
+        ========================================== */
+
+        document
+            .getElementById("loginForm")
+            .addEventListener("submit", function(event) {
+
+                event.preventDefault();
+
+
+                /*
+                ==========================================
+                TODO:
+
+                Remove this temporary section when
+                FastAPI authentication is ready.
+
+                Later we will send:
+
+                email
+                password
+
+                to the backend API.
+
+                Example:
+
+                fetch("YOUR_FASTAPI_LOGIN_ENDPOINT", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        email: email,
+                        password: password
+                    })
+                });
+
+                ==========================================
+                */
+
+
+                alert(
+                    "Login API is not connected yet.\n\n" +
+                    "Your friend will provide the FastAPI endpoint later."
+                );
+
+            });
+
+    </script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,1492 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>Data Analysis | Decision Intelligence</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
+}
+
+body{
+
+    min-height:100vh;
+
+    background:#07111f;
+
+    color:white;
+
+    padding:30px;
+
+}
+
+.container{
+
+    max-width:1150px;
+
+    margin:auto;
+
+}
+
+/* HEADER */
+
+.header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:35px;
+
+}
+
+.logo{
+
+    font-size:21px;
+
+    font-weight:bold;
+
+}
+
+.logo span{
+
+    color:#60a5fa;
+
+}
+
+.back{
+
+    color:#8fa0b6;
+
+    text-decoration:none;
+
+    font-size:13px;
+
+}
+
+/* TITLE */
+
+.title{
+
+    margin-bottom:28px;
+
+}
+
+.title h1{
+
+    font-size:30px;
+
+    margin-bottom:8px;
+
+}
+
+.title p{
+
+    color:#718198;
+
+    font-size:13px;
+
+}
+
+/* DATASET */
+
+.dataset{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:15px;
+
+    padding:15px 18px;
+
+    background:rgba(15,28,47,.85);
+
+    border:1px solid rgba(255,255,255,.07);
+
+    border-radius:12px;
+
+    margin-bottom:20px;
+
+}
+
+.dataset-icon{
+
+    width:42px;
+
+    height:42px;
+
+    border-radius:9px;
+
+    background:rgba(37,99,235,.15);
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    color:#60a5fa;
+
+}
+
+.dataset-info{
+
+    flex:1;
+
+}
+
+.dataset-info strong{
+
+    display:block;
+
+    font-size:12px;
+
+    margin-bottom:4px;
+
+}
+
+.dataset-info small{
+
+    color:#64748b;
+
+    font-size:10px;
+
+}
+
+/* GRID */
+
+.grid{
+
+    display:grid;
+
+    grid-template-columns:1.3fr .7fr;
+
+    gap:20px;
+
+}
+
+/* CARD */
+
+.card{
+
+    background:rgba(15,28,47,.85);
+
+    border:1px solid rgba(255,255,255,.07);
+
+    border-radius:14px;
+
+    padding:24px;
+
+}
+
+.card h2{
+
+    font-size:15px;
+
+    margin-bottom:7px;
+
+}
+
+.card-description{
+
+    color:#64748b;
+
+    font-size:10px;
+
+    margin-bottom:22px;
+
+}
+
+/* ANALYSIS OPTIONS */
+
+.options{
+
+    display:grid;
+
+    grid-template-columns:1fr 1fr;
+
+    gap:12px;
+
+}
+
+.option{
+
+    position:relative;
+
+}
+
+.option input{
+
+    display:none;
+
+}
+
+.option label{
+
+    display:block;
+
+    padding:17px;
+
+    border:1px solid rgba(255,255,255,.07);
+
+    border-radius:10px;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+    background:rgba(255,255,255,.02);
+
+}
+
+.option label:hover{
+
+    border-color:rgba(96,165,250,.35);
+
+    transform:translateY(-2px);
+
+}
+
+.option input:checked + label{
+
+    background:rgba(37,99,235,.12);
+
+    border-color:#2563eb;
+
+}
+
+.option-icon{
+
+    font-size:20px;
+
+    margin-bottom:10px;
+
+}
+
+.option strong{
+
+    display:block;
+
+    font-size:11px;
+
+    margin-bottom:5px;
+
+}
+
+.option small{
+
+    color:#64748b;
+
+    font-size:9px;
+
+    line-height:1.5;
+
+}
+
+/* SELECT ALL */
+
+.select-all{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:8px;
+
+    color:#718198;
+
+    font-size:10px;
+
+    margin-bottom:15px;
+
+    cursor:pointer;
+
+}
+
+/* BUTTON */
+
+.start-btn{
+
+    width:100%;
+
+    margin-top:22px;
+
+    padding:14px;
+
+    border:none;
+
+    border-radius:8px;
+
+    background:#2563eb;
+
+    color:white;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+}
+
+.start-btn:hover{
+
+    background:#3b82f6;
+
+    transform:translateY(-2px);
+
+    box-shadow:0 10px 25px rgba(37,99,235,.25);
+
+}
+
+.start-btn:disabled{
+
+    opacity:.5;
+
+    cursor:not-allowed;
+
+}
+
+/* RIGHT SIDE */
+
+.ai-box{
+
+    background:
+
+    linear-gradient(
+
+        145deg,
+
+        rgba(37,99,235,.13),
+
+        rgba(124,58,237,.09)
+
+    );
+
+}
+
+.ai-icon{
+
+    width:45px;
+
+    height:45px;
+
+    border-radius:11px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    background:rgba(96,165,250,.12);
+
+    color:#60a5fa;
+
+    font-size:22px;
+
+    margin-bottom:16px;
+
+}
+
+.ai-box h3{
+
+    font-size:14px;
+
+    margin-bottom:8px;
+
+}
+
+.ai-box p{
+
+    color:#718198;
+
+    font-size:10px;
+
+    line-height:1.6;
+
+}
+
+/* STEPS */
+
+.process{
+
+    margin-top:20px;
+
+}
+
+.process-title{
+
+    font-size:11px;
+
+    color:#8fa0b6;
+
+    margin-bottom:15px;
+
+}
+
+.process-step{
+
+    display:flex;
+
+    gap:12px;
+
+    align-items:flex-start;
+
+    margin-bottom:18px;
+
+}
+
+.step-number{
+
+    width:25px;
+
+    height:25px;
+
+    border-radius:50%;
+
+    background:rgba(37,99,235,.12);
+
+    color:#60a5fa;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-size:9px;
+
+}
+
+.step-text strong{
+
+    display:block;
+
+    font-size:10px;
+
+    margin-bottom:4px;
+
+}
+
+.step-text span{
+
+    color:#64748b;
+
+    font-size:9px;
+
+}
+
+/* PROGRESS */
+
+.progress-section{
+
+    display:none;
+
+    margin-top:20px;
+
+    padding:20px;
+
+    background:rgba(15,28,47,.85);
+
+    border:1px solid rgba(255,255,255,.07);
+
+    border-radius:14px;
+
+}
+
+.progress-top{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    margin-bottom:10px;
+
+}
+
+.progress-top span{
+
+    color:#8fa0b6;
+
+    font-size:10px;
+
+}
+
+.progress{
+
+    height:6px;
+
+    background:#1e293b;
+
+    border-radius:10px;
+
+    overflow:hidden;
+
+}
+
+.progress-bar{
+
+    width:0%;
+
+    height:100%;
+
+    background:#2563eb;
+
+    transition:.4s;
+
+}
+
+.status{
+
+    margin-top:12px;
+
+    color:#64748b;
+
+    font-size:10px;
+
+}
+
+/* RESULT */
+
+.result{
+
+    display:none;
+
+    margin-top:20px;
+
+    padding:18px;
+
+    border-radius:12px;
+
+    background:rgba(74,222,128,.07);
+
+    border:1px solid rgba(74,222,128,.15);
+
+}
+
+.result strong{
+
+    color:#4ade80;
+
+    font-size:12px;
+
+}
+
+.result p{
+
+    color:#718198;
+
+    font-size:10px;
+
+    margin-top:6px;
+
+}
+
+/* RESPONSIVE */
+
+@media(max-width:850px){
+
+    .grid{
+
+        grid-template-columns:1fr;
+
+    }
+
+}
+
+@media(max-width:600px){
+
+    body{
+
+        padding:18px;
+
+    }
+
+    .options{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .title h1{
+
+        font-size:25px;
+
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+
+<!-- HEADER -->
+
+<div class="header">
+
+    <div class="logo">
+
+        Decision<span>Intelligence</span>
+
+    </div>
+
+    <a href="preview.html"
+       class="back">
+
+        ← Back to Preview
+
+    </a>
+
+</div>
+
+
+<!-- TITLE -->
+
+<div class="title">
+
+    <h1>
+
+        Analyse Your Data
+
+    </h1>
+
+    <p>
+
+        Choose what you want Decision Intelligence
+        to discover from your dataset.
+
+    </p>
+
+</div>
+
+
+<!-- DATASET -->
+
+<div class="dataset">
+
+    <div class="dataset-icon">
+
+        ▤
+
+    </div>
+
+    <div class="dataset-info">
+
+        <strong>
+
+            sales_business_data.xlsx
+
+        </strong>
+
+        <small>
+
+            12,480 records • 8 columns • Data quality 92%
+
+        </small>
+
+    </div>
+
+    <span style="
+        color:#4ade80;
+        font-size:10px;
+    ">
+
+        ✓ Validated
+
+    </span>
+
+</div>
+
+
+<!-- MAIN GRID -->
+
+<div class="grid">
+
+
+<!-- LEFT -->
+
+<div class="card">
+
+    <h2>
+
+        Select Analysis
+
+    </h2>
+
+    <p class="card-description">
+
+        Select one or more areas you want the
+        system to analyse.
+
+    </p>
+
+
+    <label class="select-all">
+
+        <input
+            type="checkbox"
+            id="selectAll">
+
+        Select all analysis types
+
+    </label>
+
+
+    <div class="options">
+
+
+        <!-- REVENUE -->
+
+        <div class="option">
+
+            <input
+                type="checkbox"
+                class="analysis"
+                id="revenue"
+                value="revenue">
+
+            <label for="revenue">
+
+                <div class="option-icon">
+
+                    ₹
+
+                </div>
+
+                <strong>
+
+                    Revenue Analysis
+
+                </strong>
+
+                <small>
+
+                    Discover revenue trends,
+                    growth and performance.
+
+                </small>
+
+            </label>
+
+        </div>
+
+
+        <!-- SALES -->
+
+        <div class="option">
+
+            <input
+                type="checkbox"
+                class="analysis"
+                id="sales"
+                value="sales">
+
+            <label for="sales">
+
+                <div class="option-icon">
+
+                    ◴
+
+                </div>
+
+                <strong>
+
+                    Sales Performance
+
+                </strong>
+
+                <small>
+
+                    Identify sales patterns,
+                    peaks and weaknesses.
+
+                </small>
+
+            </label>
+
+        </div>
+
+
+        <!-- CUSTOMER -->
+
+        <div class="option">
+
+            <input
+                type="checkbox"
+                class="analysis"
+                id="customers"
+                value="customers">
+
+            <label for="customers">
+
+                <div class="option-icon">
+
+                    ◉
+
+                </div>
+
+                <strong>
+
+                    Customer Analysis
+
+                </strong>
+
+                <small>
+
+                    Understand customer behaviour
+                    and valuable segments.
+
+                </small>
+
+            </label>
+
+        </div>
+
+
+        <!-- PRODUCT -->
+
+        <div class="option">
+
+            <input
+                type="checkbox"
+                class="analysis"
+                id="products"
+                value="products">
+
+            <label for="products">
+
+                <div class="option-icon">
+
+                    ◆
+
+                </div>
+
+                <strong>
+
+                    Product Performance
+
+                </strong>
+
+                <small>
+
+                    Find your best and
+                    worst-performing products.
+
+                </small>
+
+            </label>
+
+        </div>
+
+
+        <!-- TREND -->
+
+        <div class="option">
+
+            <input
+                type="checkbox"
+                class="analysis"
+                id="trends"
+                value="trends">
+
+            <label for="trends">
+
+                <div class="option-icon">
+
+                    ↗
+
+                </div>
+
+                <strong>
+
+                    Trend Detection
+
+                </strong>
+
+                <small>
+
+                    Detect important patterns
+                    and changes in your data.
+
+                </small>
+
+            </label>
+
+        </div>
+
+
+        <!-- ANOMALY -->
+
+        <div class="option">
+
+            <input
+                type="checkbox"
+                class="analysis"
+                id="anomalies"
+                value="anomalies">
+
+            <label for="anomalies">
+
+                <div class="option-icon">
+
+                    ⚠
+
+                </div>
+
+                <strong>
+
+                    Anomaly Detection
+
+                </strong>
+
+                <small>
+
+                    Identify unusual values,
+                    spikes and unexpected behaviour.
+
+                </small>
+
+            </label>
+
+        </div>
+
+
+    </div>
+
+
+    <button
+        class="start-btn"
+        id="startBtn">
+
+        Start Intelligent Analysis →
+
+    </button>
+
+
+</div>
+
+
+<!-- RIGHT -->
+
+<div class="card ai-box">
+
+
+    <div class="ai-icon">
+
+        ✦
+
+    </div>
+
+
+    <h3>
+
+        AI-Powered Analysis
+
+    </h3>
+
+
+    <p>
+
+        The system will analyse your dataset,
+        identify patterns and generate useful
+        business insights.
+
+    </p>
+
+
+    <div class="process">
+
+
+        <div class="process-title">
+
+            ANALYSIS PIPELINE
+
+        </div>
+
+
+        <div class="process-step">
+
+            <div class="step-number">
+
+                01
+
+            </div>
+
+            <div class="step-text">
+
+                <strong>
+
+                    Data Processing
+
+                </strong>
+
+                <span>
+
+                    Clean and prepare the dataset.
+
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <div class="process-step">
+
+            <div class="step-number">
+
+                02
+
+            </div>
+
+            <div class="step-text">
+
+                <strong>
+
+                    Pattern Detection
+
+                </strong>
+
+                <span>
+
+                    Discover trends and relationships.
+
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <div class="process-step">
+
+            <div class="step-number">
+
+                03
+
+            </div>
+
+            <div class="step-text">
+
+                <strong>
+
+                    AI Reasoning
+
+                </strong>
+
+                <span>
+
+                    Generate meaningful business insights.
+
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <div class="process-step">
+
+            <div class="step-number">
+
+                04
+
+            </div>
+
+            <div class="step-text">
+
+                <strong>
+
+                    Recommendations
+
+                </strong>
+
+                <span>
+
+                    Convert analysis into decisions.
+
+                </span>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+</div>
+
+
+</div>
+
+
+<!-- PROGRESS -->
+
+<div
+    class="progress-section"
+    id="progressSection">
+
+
+    <div class="progress-top">
+
+        <span id="progressStatus">
+
+            Preparing analysis...
+
+        </span>
+
+        <span id="progressPercent">
+
+            0%
+
+        </span>
+
+    </div>
+
+
+    <div class="progress">
+
+        <div
+            class="progress-bar"
+            id="progressBar">
+
+        </div>
+
+    </div>
+
+
+    <div
+        class="status"
+        id="status">
+
+        Initialising intelligent analysis...
+
+    </div>
+
+
+</div>
+
+
+<!-- RESULT -->
+
+<div
+    class="result"
+    id="result">
+
+
+    <strong>
+
+        ✓ Analysis completed successfully
+
+    </strong>
+
+
+    <p>
+
+        Your dataset has been analysed.
+        The next step will display the generated
+        business insights and recommendations.
+
+    </p>
+
+
+</div>
+
+
+</div>
+
+
+<script>
+
+
+/* ==========================================
+   SELECT ALL
+========================================== */
+
+const selectAll =
+    document.getElementById("selectAll");
+
+const analysis =
+    document.querySelectorAll(".analysis");
+
+
+selectAll.addEventListener(
+    "change",
+    function(){
+
+        analysis.forEach(
+            checkbox => {
+
+                checkbox.checked =
+                    this.checked;
+
+            }
+        );
+
+    }
+);
+
+
+/* ==========================================
+   UPDATE SELECT ALL
+========================================== */
+
+analysis.forEach(
+    checkbox => {
+
+        checkbox.addEventListener(
+            "change",
+            function(){
+
+                const allChecked =
+                    [...analysis]
+                    .every(
+                        item => item.checked
+                    );
+
+                selectAll.checked =
+                    allChecked;
+
+            }
+        );
+
+    }
+);
+
+
+/* ==========================================
+   START ANALYSIS
+========================================== */
+
+const startBtn =
+    document.getElementById("startBtn");
+
+const progressSection =
+    document.getElementById("progressSection");
+
+const progressBar =
+    document.getElementById("progressBar");
+
+const progressPercent =
+    document.getElementById("progressPercent");
+
+const progressStatus =
+    document.getElementById("progressStatus");
+
+const status =
+    document.getElementById("status");
+
+const result =
+    document.getElementById("result");
+
+
+startBtn.addEventListener(
+    "click",
+    function(){
+
+        const selected =
+            [...analysis]
+            .filter(
+                item => item.checked
+            )
+            .map(
+                item => item.value
+            );
+
+
+        if(selected.length === 0){
+
+            alert(
+                "Please select at least one analysis type."
+            );
+
+            return;
+
+        }
+
+
+        startBtn.disabled =
+            true;
+
+
+        progressSection.style.display =
+            "block";
+
+
+        let progress = 0;
+
+
+        const timer =
+            setInterval(
+                function(){
+
+                    progress += 4;
+
+
+                    progressBar.style.width =
+                        progress + "%";
+
+
+                    progressPercent.innerText =
+                        progress + "%";
+
+
+                    if(progress < 25){
+
+                        progressStatus.innerText =
+                            "Preparing dataset...";
+
+                        status.innerText =
+                            "Preparing selected analysis...";
+
+                    }
+
+                    else if(progress < 50){
+
+                        progressStatus.innerText =
+                            "Processing data...";
+
+                        status.innerText =
+                            "Cleaning and analysing records...";
+
+                    }
+
+                    else if(progress < 75){
+
+                        progressStatus.innerText =
+                            "Detecting patterns...";
+
+                        status.innerText =
+                            "Searching for trends and relationships...";
+
+                    }
+
+                    else if(progress < 95){
+
+                        progressStatus.innerText =
+                            "Generating insights...";
+
+                        status.innerText =
+                            "AI is interpreting the analysis...";
+
+                    }
+
+                    else{
+
+                        progressStatus.innerText =
+                            "Finalising analysis...";
+
+                    }
+
+
+                    if(progress >= 100){
+
+                        clearInterval(timer);
+
+
+                        progressStatus.innerText =
+                            "Analysis complete";
+
+                        status.innerText =
+                            "Business insights are ready.";
+
+
+                        result.style.display =
+                            "block";
+
+
+                        startBtn.innerText =
+                            "View AI Insights →";
+
+
+                        startBtn.disabled =
+                            false;
+
+
+                        startBtn.onclick =
+                            function(){
+
+                                /*
+                                TODO:
+                                Navigate to insights.html
+                                after that page is created.
+                                */
+
+                                window.location.href =
+                                    "insights.html";
+
+                            };
+
+                    }
+
+
+                },
+                100
+            );
+
+
+        /*
+        =================================================
+        TODO — FASTAPI CONNECTION
+
+        When your friend's API is ready,
+        replace the temporary simulation with:
+
+        fetch(
+            "YOUR_FASTAPI_ANALYSIS_ENDPOINT",
+            {
+                method: "POST",
+
+                headers: {
+                    "Content-Type":
+                        "application/json"
+                },
+
+                body: JSON.stringify({
+
+                    dataset_id:
+                        "DATASET_ID",
+
+                    analysis_types:
+                        selected
+
+                })
+
+            }
+        )
+
+        =================================================
+        */
+
+    }
+);
+
+</script>
+
+
+</body>
+
+</html>

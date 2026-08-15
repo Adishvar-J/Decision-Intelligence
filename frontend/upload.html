@@ -1,0 +1,1404 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>Upload Data | Decision Intelligence</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
+}
+
+body{
+
+    min-height:100vh;
+
+    background:#07111f;
+
+    color:white;
+
+    padding:35px;
+
+}
+
+body::before{
+
+    content:"";
+
+    position:fixed;
+
+    width:450px;
+    height:450px;
+
+    background:#2563eb;
+
+    filter:blur(180px);
+
+    opacity:.10;
+
+    top:-200px;
+    left:-180px;
+
+    z-index:-1;
+
+}
+
+.container{
+
+    max-width:1100px;
+
+    margin:auto;
+
+}
+
+/* HEADER */
+
+.header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:35px;
+
+}
+
+.logo{
+
+    font-size:21px;
+
+    font-weight:bold;
+
+}
+
+.logo span{
+
+    color:#60a5fa;
+
+}
+
+.back{
+
+    color:#8fa0b6;
+
+    text-decoration:none;
+
+    font-size:13px;
+
+}
+
+.back:hover{
+
+    color:white;
+
+}
+
+/* TITLE */
+
+.title{
+
+    margin-bottom:30px;
+
+}
+
+.title h1{
+
+    font-size:32px;
+
+    margin-bottom:8px;
+
+}
+
+.title p{
+
+    color:#718198;
+
+    font-size:14px;
+
+}
+
+/* MAIN */
+
+.upload-layout{
+
+    display:grid;
+
+    grid-template-columns:1.4fr .8fr;
+
+    gap:20px;
+
+}
+
+/* UPLOAD CARD */
+
+.upload-card{
+
+    background:rgba(15,28,47,.85);
+
+    border:1px solid rgba(255,255,255,.08);
+
+    border-radius:16px;
+
+    padding:30px;
+
+}
+
+/* DROP AREA */
+
+.drop-area{
+
+    border:2px dashed rgba(96,165,250,.35);
+
+    border-radius:14px;
+
+    padding:60px 25px;
+
+    text-align:center;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+}
+
+.drop-area:hover,
+
+.drop-area.dragover{
+
+    border-color:#60a5fa;
+
+    background:rgba(37,99,235,.08);
+
+    transform:scale(1.01);
+
+}
+
+.upload-icon{
+
+    width:65px;
+
+    height:65px;
+
+    border-radius:15px;
+
+    margin:auto;
+
+    margin-bottom:20px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    background:rgba(37,99,235,.15);
+
+    color:#60a5fa;
+
+    font-size:28px;
+
+}
+
+.drop-area h2{
+
+    font-size:18px;
+
+    margin-bottom:8px;
+
+}
+
+.drop-area p{
+
+    color:#718198;
+
+    font-size:12px;
+
+    margin-bottom:18px;
+
+}
+
+.browse{
+
+    display:inline-block;
+
+    padding:10px 18px;
+
+    background:#2563eb;
+
+    border-radius:7px;
+
+    font-size:12px;
+
+    font-weight:bold;
+
+}
+
+input[type="file"]{
+
+    display:none;
+
+}
+
+/* FILE INFO */
+
+.file-info{
+
+    display:none;
+
+    margin-top:20px;
+
+    padding:15px;
+
+    border-radius:10px;
+
+    background:rgba(255,255,255,.04);
+
+    border:1px solid rgba(255,255,255,.06);
+
+}
+
+.file-row{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+}
+
+.file-icon{
+
+    width:40px;
+
+    height:40px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    border-radius:8px;
+
+    background:rgba(74,222,128,.1);
+
+    color:#4ade80;
+
+}
+
+.file-details{
+
+    flex:1;
+
+}
+
+.file-details strong{
+
+    display:block;
+
+    font-size:12px;
+
+}
+
+.file-details small{
+
+    color:#64748b;
+
+    font-size:10px;
+
+}
+
+.remove{
+
+    border:none;
+
+    background:none;
+
+    color:#fb7185;
+
+    cursor:pointer;
+
+}
+
+/* PROGRESS */
+
+.progress-container{
+
+    display:none;
+
+    margin-top:18px;
+
+}
+
+.progress-text{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    color:#718198;
+
+    font-size:10px;
+
+    margin-bottom:7px;
+
+}
+
+.progress{
+
+    height:5px;
+
+    background:#1e293b;
+
+    border-radius:10px;
+
+    overflow:hidden;
+
+}
+
+.progress-bar{
+
+    width:0%;
+
+    height:100%;
+
+    background:#2563eb;
+
+    transition:.3s;
+
+}
+
+/* ANALYSE BUTTON */
+
+.analyse-btn{
+
+    width:100%;
+
+    margin-top:20px;
+
+    padding:14px;
+
+    border:none;
+
+    border-radius:8px;
+
+    background:#2563eb;
+
+    color:white;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+}
+
+.analyse-btn:hover{
+
+    background:#3b82f6;
+
+    transform:translateY(-2px);
+
+    box-shadow:0 10px 25px rgba(37,99,235,.25);
+
+}
+
+.analyse-btn:disabled{
+
+    opacity:.5;
+
+    cursor:not-allowed;
+
+}
+
+/* RIGHT CARD */
+
+.info-card{
+
+    background:rgba(15,28,47,.85);
+
+    border:1px solid rgba(255,255,255,.08);
+
+    border-radius:16px;
+
+    padding:25px;
+
+}
+
+.info-card h3{
+
+    font-size:15px;
+
+    margin-bottom:20px;
+
+}
+
+.step{
+
+    display:flex;
+
+    gap:12px;
+
+    margin-bottom:20px;
+
+}
+
+.step-number{
+
+    min-width:28px;
+
+    height:28px;
+
+    border-radius:50%;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    background:rgba(37,99,235,.15);
+
+    color:#60a5fa;
+
+    font-size:11px;
+
+}
+
+.step-text strong{
+
+    display:block;
+
+    font-size:12px;
+
+    margin-bottom:4px;
+
+}
+
+.step-text p{
+
+    color:#64748b;
+
+    font-size:10px;
+
+    line-height:1.5;
+
+}
+
+/* SUPPORTED */
+
+.supported{
+
+    margin-top:25px;
+
+    padding-top:20px;
+
+    border-top:1px solid rgba(255,255,255,.06);
+
+}
+
+.supported p{
+
+    color:#64748b;
+
+    font-size:10px;
+
+    margin-bottom:12px;
+
+}
+
+.formats{
+
+    display:flex;
+
+    gap:8px;
+
+    flex-wrap:wrap;
+
+}
+
+.format{
+
+    padding:7px 10px;
+
+    border-radius:6px;
+
+    background:rgba(255,255,255,.04);
+
+    color:#9caec5;
+
+    font-size:10px;
+
+}
+
+/* STATUS */
+
+.status{
+
+    display:none;
+
+    margin-top:20px;
+
+    padding:14px;
+
+    border-radius:8px;
+
+    background:rgba(74,222,128,.08);
+
+    border:1px solid rgba(74,222,128,.15);
+
+    color:#4ade80;
+
+    font-size:11px;
+
+}
+
+/* RESPONSIVE */
+
+@media(max-width:800px){
+
+    body{
+
+        padding:20px;
+
+    }
+
+    .upload-layout{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .title h1{
+
+        font-size:26px;
+
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+
+    <!-- HEADER -->
+
+    <div class="header">
+
+        <div class="logo">
+
+            Decision<span>Intelligence</span>
+
+        </div>
+
+        <a href="dashboard.html"
+           class="back">
+
+            ← Back to Dashboard
+
+        </a>
+
+    </div>
+
+
+    <!-- TITLE -->
+
+    <div class="title">
+
+        <h1>
+
+            Upload Your Data
+
+        </h1>
+
+        <p>
+
+            Upload your business dataset and let
+            Decision Intelligence transform it into
+            meaningful insights.
+
+        </p>
+
+    </div>
+
+
+    <!-- CONTENT -->
+
+    <div class="upload-layout">
+
+
+        <!-- LEFT -->
+
+        <div class="upload-card">
+
+
+            <div
+                class="drop-area"
+                id="dropArea">
+
+
+                <div class="upload-icon">
+
+                    ↑
+
+                </div>
+
+
+                <h2>
+
+                    Drop your dataset here
+
+                </h2>
+
+
+                <p>
+
+                    or choose a file from your device
+
+                </p>
+
+
+                <label
+                    for="fileInput"
+                    class="browse">
+
+                    Browse Files
+
+                </label>
+
+
+                <input
+                    type="file"
+                    id="fileInput"
+                    accept=".csv,.xlsx,.xls">
+
+
+            </div>
+
+
+            <!-- FILE INFO -->
+
+            <div
+                class="file-info"
+                id="fileInfo">
+
+
+                <div class="file-row">
+
+
+                    <div class="file-icon">
+
+                        ✓
+
+                    </div>
+
+
+                    <div class="file-details">
+
+                        <strong id="fileName">
+
+                            Dataset
+
+                        </strong>
+
+                        <small id="fileSize">
+
+                            0 KB
+
+                        </small>
+
+                    </div>
+
+
+                    <button
+                        class="remove"
+                        id="removeFile">
+
+                        ✕
+
+                    </button>
+
+
+                </div>
+
+
+            </div>
+
+
+            <!-- PROGRESS -->
+
+            <div
+                class="progress-container"
+                id="progressContainer">
+
+
+                <div class="progress-text">
+
+                    <span id="progressStatus">
+
+                        Preparing dataset...
+
+                    </span>
+
+                    <span id="progressPercent">
+
+                        0%
+
+                    </span>
+
+                </div>
+
+
+                <div class="progress">
+
+                    <div
+                        class="progress-bar"
+                        id="progressBar">
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- BUTTON -->
+
+            <button
+                class="analyse-btn"
+                id="analyseBtn"
+                disabled>
+
+                Analyse Dataset →
+
+            </button>
+
+
+            <!-- STATUS -->
+
+            <div
+                class="status"
+                id="status">
+
+                ✓ Dataset is ready for analysis.
+
+            </div>
+
+
+        </div>
+
+
+        <!-- RIGHT -->
+
+        <div class="info-card">
+
+
+            <h3>
+
+                How it works
+
+            </h3>
+
+
+            <div class="step">
+
+
+                <div class="step-number">
+
+                    01
+
+                </div>
+
+
+                <div class="step-text">
+
+                    <strong>
+
+                        Upload
+
+                    </strong>
+
+                    <p>
+
+                        Upload your CSV or Excel
+                        business dataset.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="step">
+
+
+                <div class="step-number">
+
+                    02
+
+                </div>
+
+
+                <div class="step-text">
+
+                    <strong>
+
+                        Understand
+
+                    </strong>
+
+                    <p>
+
+                        The system detects columns,
+                        data types and missing values.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="step">
+
+
+                <div class="step-number">
+
+                    03
+
+                </div>
+
+
+                <div class="step-text">
+
+                    <strong>
+
+                        Analyse
+
+                    </strong>
+
+                    <p>
+
+                        Your data is processed and
+                        analysed by the backend.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="step">
+
+
+                <div class="step-number">
+
+                    04
+
+                </div>
+
+
+                <div class="step-text">
+
+                    <strong>
+
+                        Decide
+
+                    </strong>
+
+                    <p>
+
+                        AI generates insights,
+                        trends and recommendations.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="supported">
+
+                <p>
+
+                    SUPPORTED FILE FORMATS
+
+                </p>
+
+
+                <div class="formats">
+
+                    <div class="format">
+
+                        CSV
+
+                    </div>
+
+                    <div class="format">
+
+                        XLSX
+
+                    </div>
+
+                    <div class="format">
+
+                        XLS
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+
+</div>
+
+
+<script>
+
+
+/* ==========================================
+   ELEMENTS
+========================================== */
+
+const dropArea =
+    document.getElementById("dropArea");
+
+const fileInput =
+    document.getElementById("fileInput");
+
+const fileInfo =
+    document.getElementById("fileInfo");
+
+const fileName =
+    document.getElementById("fileName");
+
+const fileSize =
+    document.getElementById("fileSize");
+
+const removeFile =
+    document.getElementById("removeFile");
+
+const analyseBtn =
+    document.getElementById("analyseBtn");
+
+const progressContainer =
+    document.getElementById("progressContainer");
+
+const progressBar =
+    document.getElementById("progressBar");
+
+const progressPercent =
+    document.getElementById("progressPercent");
+
+const progressStatus =
+    document.getElementById("progressStatus");
+
+const status =
+    document.getElementById("status");
+
+
+let selectedFile = null;
+
+
+/* ==========================================
+   CLICK UPLOAD
+========================================== */
+
+dropArea.addEventListener(
+    "click",
+    function(event){
+
+        if(
+            event.target.tagName !== "LABEL"
+        ){
+
+            fileInput.click();
+
+        }
+
+    }
+);
+
+
+/* ==========================================
+   FILE SELECT
+========================================== */
+
+fileInput.addEventListener(
+    "change",
+    function(){
+
+        if(this.files.length > 0){
+
+            handleFile(this.files[0]);
+
+        }
+
+    }
+);
+
+
+/* ==========================================
+   DRAG & DROP
+========================================== */
+
+dropArea.addEventListener(
+    "dragover",
+    function(event){
+
+        event.preventDefault();
+
+        dropArea.classList.add("dragover");
+
+    }
+);
+
+
+dropArea.addEventListener(
+    "dragleave",
+    function(){
+
+        dropArea.classList.remove(
+            "dragover"
+        );
+
+    }
+);
+
+
+dropArea.addEventListener(
+    "drop",
+    function(event){
+
+        event.preventDefault();
+
+        dropArea.classList.remove(
+            "dragover"
+        );
+
+
+        const files =
+            event.dataTransfer.files;
+
+
+        if(files.length > 0){
+
+            handleFile(files[0]);
+
+        }
+
+    }
+);
+
+
+/* ==========================================
+   HANDLE FILE
+========================================== */
+
+function handleFile(file){
+
+    const allowedTypes = [
+
+        "text/csv",
+
+        "application/vnd.ms-excel",
+
+        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+
+    ];
+
+
+    const extension =
+        file.name
+        .split(".")
+        .pop()
+        .toLowerCase();
+
+
+    if(
+        !allowedTypes.includes(file.type) &&
+        !["csv","xlsx","xls"].includes(extension)
+    ){
+
+        alert(
+            "Please upload a CSV or Excel file."
+        );
+
+        return;
+
+    }
+
+
+    selectedFile = file;
+
+
+    fileName.innerText =
+        file.name;
+
+
+    fileSize.innerText =
+        formatFileSize(file.size);
+
+
+    fileInfo.style.display =
+        "block";
+
+
+    analyseBtn.disabled =
+        false;
+
+
+    status.style.display =
+        "none";
+
+
+    progressContainer.style.display =
+        "none";
+
+}
+
+
+/* ==========================================
+   FILE SIZE
+========================================== */
+
+function formatFileSize(bytes){
+
+    if(bytes === 0){
+
+        return "0 KB";
+
+    }
+
+
+    const units = [
+        "Bytes",
+        "KB",
+        "MB",
+        "GB"
+    ];
+
+
+    const index =
+        Math.floor(
+            Math.log(bytes) /
+            Math.log(1024)
+        );
+
+
+    return (
+        parseFloat(
+            (bytes /
+            Math.pow(1024,index))
+            .toFixed(2)
+        )
+        + " "
+        + units[index]
+    );
+
+}
+
+
+/* ==========================================
+   REMOVE FILE
+========================================== */
+
+removeFile.addEventListener(
+    "click",
+    function(){
+
+        selectedFile = null;
+
+        fileInput.value = "";
+
+        fileInfo.style.display =
+            "none";
+
+        analyseBtn.disabled =
+            true;
+
+        progressContainer.style.display =
+            "none";
+
+        status.style.display =
+            "none";
+
+    }
+);
+
+
+/* ==========================================
+   ANALYSE
+========================================== */
+
+analyseBtn.addEventListener(
+    "click",
+    function(){
+
+        if(!selectedFile){
+
+            return;
+
+        }
+
+
+        /*
+        =================================================
+        TEMPORARY FRONTEND SIMULATION
+        =================================================
+
+        This animation is only for the frontend.
+
+        Later this section will be replaced by the
+        actual FastAPI upload endpoint.
+
+        =================================================
+        */
+
+
+        analyseBtn.disabled =
+            true;
+
+
+        progressContainer.style.display =
+            "block";
+
+
+        let progress = 0;
+
+
+        const timer =
+            setInterval(
+                function(){
+
+
+                    progress += 5;
+
+
+                    progressBar.style.width =
+                        progress + "%";
+
+
+                    progressPercent.innerText =
+                        progress + "%";
+
+
+                    if(progress < 35){
+
+                        progressStatus.innerText =
+                            "Uploading dataset...";
+
+                    }
+
+                    else if(progress < 70){
+
+                        progressStatus.innerText =
+                            "Validating data...";
+
+                    }
+
+                    else{
+
+                        progressStatus.innerText =
+                            "Preparing analysis...";
+
+                    }
+
+
+                    if(progress >= 100){
+
+                        clearInterval(timer);
+
+
+                        progressStatus.innerText =
+                            "Dataset ready";
+
+
+                        status.style.display =
+                            "block";
+
+
+                        analyseBtn.disabled =
+                            false;
+
+                    }
+
+
+                },
+                80
+            );
+
+
+        /*
+        =================================================
+        TODO — FASTAPI CONNECTION
+
+        When your friend provides the endpoint,
+        replace the simulation above with:
+
+        const formData = new FormData();
+
+        formData.append(
+            "file",
+            selectedFile
+        );
+
+        fetch(
+            "YOUR_FASTAPI_UPLOAD_ENDPOINT",
+            {
+                method: "POST",
+
+                body: formData
+            }
+        )
+        .then(response => response.json())
+        .then(data => {
+
+            console.log(data);
+
+        });
+
+        =================================================
+        */
+
+    }
+);
+
+
+</script>
+
+
+</body>
+
+</html>
