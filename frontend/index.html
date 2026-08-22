@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Decision Intelligence</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: #07111f;
+            color: white;
+            overflow-x: hidden;
+        }
+
+        /* Animated background */
+
+        body::before {
+            content: "";
+            position: fixed;
+            width: 500px;
+            height: 500px;
+            background: #2563eb;
+            filter: blur(180px);
+            opacity: 0.18;
+            top: -200px;
+            left: -150px;
+            z-index: -1;
+        }
+
+        body::after {
+            content: "";
+            position: fixed;
+            width: 450px;
+            height: 450px;
+            background: #7c3aed;
+            filter: blur(180px);
+            opacity: 0.15;
+            right: -150px;
+            bottom: -150px;
+            z-index: -1;
+        }
+
+        /* Navigation */
+
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            padding: 20px 7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(7, 17, 31, 0.75);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .logo {
+            font-size: 23px;
+            font-weight: bold;
+            letter-spacing: -0.5px;
+        }
+
+        .logo span {
+            color: #60a5fa;
+        }
+
+        .nav-buttons {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-buttons a {
+            text-decoration: none;
+            padding: 10px 18px;
+            border-radius: 8px;
+            transition: 0.3s;
+            font-size: 14px;
+        }
+
+        .login {
+            color: #dbeafe;
+        }
+
+        .login:hover {
+            background: rgba(255,255,255,0.08);
+        }
+
+        .signup {
+            background: #2563eb;
+            color: white;
+        }
+
+        .signup:hover {
+            background: #3b82f6;
+            transform: translateY(-2px);
+        }
+
+        /* Hero */
+
+        .hero {
+            min-height: 90vh;
+            padding: 80px 7%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            align-items: center;
+            gap: 70px;
+        }
+
+        .hero-text {
+            animation: fadeUp 1s ease;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 8px 14px;
+            border: 1px solid rgba(96,165,250,0.3);
+            background: rgba(37,99,235,0.1);
+            border-radius: 30px;
+            color: #93c5fd;
+            font-size: 13px;
+            margin-bottom: 22px;
+        }
+
+        .hero-text h1 {
+            font-size: clamp(42px, 5vw, 70px);
+            line-height: 1.05;
+            letter-spacing: -2px;
+            margin-bottom: 25px;
+        }
+
+        .hero-text h1 span {
+            background: linear-gradient(90deg, #60a5fa, #a78bfa);
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+
+        .hero-text p {
+            color: #9caec5;
+            font-size: 18px;
+            line-height: 1.7;
+            max-width: 600px;
+            margin-bottom: 30px;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .primary-btn,
+        .secondary-btn {
+            border: none;
+            padding: 14px 24px;
+            border-radius: 9px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: 0.3s;
+            font-weight: bold;
+        }
+
+        .primary-btn {
+            background: #2563eb;
+            color: white;
+            box-shadow: 0 10px 30px rgba(37,99,235,0.3);
+        }
+
+        .primary-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(37,99,235,0.45);
+        }
+
+        .secondary-btn {
+            background: rgba(255,255,255,0.06);
+            color: white;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .secondary-btn:hover {
+            background: rgba(255,255,255,0.12);
+        }
+
+        /* Dashboard */
+
+        .dashboard-wrapper {
+            animation: float 5s ease-in-out infinite;
+        }
+
+        .dashboard {
+            background: rgba(15,28,47,0.9);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 20px;
+            padding: 22px;
+            box-shadow: 0 30px 80px rgba(0,0,0,0.4);
+        }
+
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .dashboard-header h3 {
+            font-size: 16px;
+        }
+
+        .status {
+            font-size: 11px;
+            color: #4ade80;
+            background: rgba(74,222,128,0.1);
+            padding: 6px 9px;
+            border-radius: 20px;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-bottom: 15px;
+        }
+
+        .card {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.06);
+            padding: 18px;
+            border-radius: 12px;
+            transition: 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            background: rgba(255,255,255,0.07);
+        }
+
+        .card small {
+            color: #8da0b8;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .card strong {
+            font-size: 22px;
+        }
+
+        .growth {
+            color: #4ade80;
+            font-size: 12px;
+            margin-top: 5px;
+        }
+
+        /* Chart */
+
+        .chart-box {
+            height: 170px;
+            background: rgba(255,255,255,0.035);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 15px;
+        }
+
+        .chart-title {
+            color: #aebdd0;
+            font-size: 13px;
+            margin-bottom: 10px;
+        }
+
+        .chart {
+            height: 110px;
+            display: flex;
+            align-items: end;
+            gap: 10px;
+        }
+
+        .bar {
+            flex: 1;
+            background: linear-gradient(to top, #2563eb, #60a5fa);
+            border-radius: 5px 5px 0 0;
+            animation: growBar 1.5s ease;
+            min-height: 15px;
+        }
+
+        /* AI insight */
+
+        .ai-box {
+            padding: 17px;
+            border-radius: 12px;
+            background: linear-gradient(
+                135deg,
+                rgba(37,99,235,0.15),
+                rgba(124,58,237,0.12)
+            );
+            border: 1px solid rgba(96,165,250,0.15);
+        }
+
+        .ai-title {
+            color: #93c5fd;
+            font-size: 13px;
+            margin-bottom: 7px;
+        }
+
+        .ai-box p {
+            color: #c2cede;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        /* Features */
+
+        .features {
+            padding: 80px 7%;
+            text-align: center;
+        }
+
+        .features h2 {
+            font-size: 38px;
+            margin-bottom: 15px;
+        }
+
+        .features > p {
+            color: #8fa0b6;
+            margin-bottom: 45px;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .feature {
+            text-align: left;
+            padding: 28px;
+            border-radius: 15px;
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.07);
+            transition: 0.3s;
+        }
+
+        .feature:hover {
+            transform: translateY(-8px);
+            border-color: rgba(96,165,250,0.35);
+        }
+
+        .feature-icon {
+            font-size: 28px;
+            margin-bottom: 18px;
+        }
+
+        .feature h3 {
+            margin-bottom: 10px;
+        }
+
+        .feature p {
+            color: #8fa0b6;
+            line-height: 1.6;
+            font-size: 14px;
+        }
+
+        /* Footer */
+
+        footer {
+            padding: 30px 7%;
+            text-align: center;
+            color: #718198;
+            border-top: 1px solid rgba(255,255,255,0.07);
+            font-size: 13px;
+        }
+
+        /* Animations */
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes float {
+            0%,100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-12px);
+            }
+        }
+
+        @keyframes growBar {
+            from {
+                height: 0;
+            }
+        }
+
+        /* Responsive */
+
+        @media(max-width: 900px) {
+
+            .hero {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .hero-text p {
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .hero-actions {
+                justify-content: center;
+            }
+
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .dashboard-wrapper {
+                max-width: 600px;
+                margin: auto;
+                width: 100%;
+            }
+        }
+
+        @media(max-width: 500px) {
+
+            nav {
+                padding: 18px 5%;
+            }
+
+            .logo {
+                font-size: 18px;
+            }
+
+            .login {
+                display: none;
+            }
+
+            .hero {
+                padding: 60px 5%;
+            }
+
+            .cards {
+                grid-template-columns: 1fr;
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <!-- Navigation -->
+
+    <nav>
+
+        <div class="logo">
+            Decision<span>Intelligence</span>
+        </div>
+
+        <div class="nav-buttons">
+
+            <!-- TODO: Connect to login page -->
+            <a href="#" class="login">
+                Sign In
+            </a>
+
+            <!-- TODO: Connect to register page -->
+            <a href="#" class="signup">
+                Create Account
+            </a>
+
+        </div>
+
+    </nav>
+
+
+    <!-- Hero -->
+
+    <section class="hero">
+
+        <div class="hero-text">
+
+            <div class="badge">
+                ✦ AI-Powered Business Intelligence
+            </div>
+
+            <h1>
+                Turn Your Data Into
+                <span>Better Decisions.</span>
+            </h1>
+
+            <p>
+                Upload your business data, discover hidden patterns,
+                understand performance and make smarter decisions
+                with intelligent analytics.
+            </p>
+
+            <div class="hero-actions">
+
+                <!-- TODO: Connect to register page -->
+                <a href="#" class="primary-btn">
+                    Get Started →
+                </a>
+
+                <a href="#features" class="secondary-btn">
+                    Explore Features
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <!-- Interactive Dashboard Preview -->
+
+        <div class="dashboard-wrapper">
+
+            <div class="dashboard">
+
+                <div class="dashboard-header">
+
+                    <h3>
+                        Business Overview
+                    </h3>
+
+                    <div class="status">
+                        ● Live Analysis
+                    </div>
+
+                </div>
+
+
+                <div class="cards">
+
+                    <div class="card">
+
+                        <small>Total Revenue</small>
+
+                        <strong id="revenue">
+                            ₹0
+                        </strong>
+
+                        <div class="growth">
+                            ↑ 18.5%
+                        </div>
+
+                    </div>
+
+
+                    <div class="card">
+
+                        <small>Total Sales</small>
+
+                        <strong id="sales">
+                            0
+                        </strong>
+
+                        <div class="growth">
+                            ↑ 12.4%
+                        </div>
+
+                    </div>
+
+
+                    <div class="card">
+
+                        <small>Customers</small>
+
+                        <strong id="customers">
+                            0
+                        </strong>
+
+                    </div>
+
+
+                    <div class="card">
+
+                        <small>Top Product</small>
+
+                        <strong style="font-size:17px;">
+                            Product A
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Chart -->
+
+                <div class="chart-box">
+
+                    <div class="chart-title">
+                        Revenue Performance
+                    </div>
+
+                    <div class="chart">
+
+                        <div class="bar" style="height:35%;"></div>
+                        <div class="bar" style="height:48%;"></div>
+                        <div class="bar" style="height:42%;"></div>
+                        <div class="bar" style="height:63%;"></div>
+                        <div class="bar" style="height:58%;"></div>
+                        <div class="bar" style="height:78%;"></div>
+                        <div class="bar" style="height:92%;"></div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- AI Insight -->
+
+                <div class="ai-box">
+
+                    <div class="ai-title">
+                        ✦ AI Insight
+                    </div>
+
+                    <p>
+                        Revenue is showing a positive upward trend.
+                        Product A is currently contributing the highest
+                        share of revenue.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- Features -->
+
+    <section class="features" id="features">
+
+        <h2>
+            Everything You Need
+        </h2>
+
+        <p>
+            From raw business data to actionable intelligence.
+        </p>
+
+
+        <div class="feature-grid">
+
+            <div class="feature">
+
+                <div class="feature-icon">
+                    📊
+                </div>
+
+                <h3>
+                    Smart Analytics
+                </h3>
+
+                <p>
+                    Transform raw business data into meaningful
+                    charts, trends and performance indicators.
+                </p>
+
+            </div>
+
+
+            <div class="feature">
+
+                <div class="feature-icon">
+                    🤖
+                </div>
+
+                <h3>
+                    AI Insights
+                </h3>
+
+                <p>
+                    Discover important patterns and receive
+                    intelligent insights from your business data.
+                </p>
+
+            </div>
+
+
+            <div class="feature">
+
+                <div class="feature-icon">
+                    💬
+                </div>
+
+                <h3>
+                    Ask Your Data
+                </h3>
+
+                <p>
+                    Ask questions about your data in natural language
+                    and receive meaningful answers.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- Footer -->
+
+    <footer>
+
+        © 2026 Decision Intelligence · Intelligent Business Analytics
+
+    </footer>
+
+
+    <!-- JavaScript -->
+
+    <script>
+
+        /*
+        ==================================================
+        TEMPORARY DEMO DATA
+        ==================================================
+
+        TODO:
+        Replace this demo animation with real data
+        received from the FastAPI backend.
+
+        API will be connected after backend development.
+        ==================================================
+        */
+
+        let revenue = 0;
+        let sales = 0;
+        let customers = 0;
+
+        const revenueTarget = 2540000;
+        const salesTarget = 8420;
+        const customerTarget = 1240;
+
+
+        function animateNumber(
+            elementId,
+            target,
+            prefix = ""
+        ) {
+
+            let current = 0;
+
+            const element =
+                document.getElementById(elementId);
+
+            const increment =
+                target / 80;
+
+
+            const timer =
+                setInterval(() => {
+
+                    current += increment;
+
+                    if (current >= target) {
+
+                        current = target;
+
+                        clearInterval(timer);
+
+                    }
+
+
+                    element.innerText =
+                        prefix +
+                        Math.floor(current)
+                        .toLocaleString("en-IN");
+
+                }, 20);
+
+        }
+
+
+        animateNumber(
+            "revenue",
+            revenueTarget,
+            "₹"
+        );
+
+
+        animateNumber(
+            "sales",
+            salesTarget
+        );
+
+
+        animateNumber(
+            "customers",
+            customerTarget
+        );
+
+
+        /*
+        ==================================================
+        API CONNECTION PLACEHOLDER
+        ==================================================
+
+        TODO:
+
+        When your friend finishes the FastAPI backend,
+        replace the demo data above with something like:
+
+        fetch("YOUR_API_ENDPOINT")
+            .then(response => response.json())
+            .then(data => {
+
+                // Update dashboard
+
+            });
+
+        ==================================================
+        */
+
+    </script>
+
+</body>
+</html>

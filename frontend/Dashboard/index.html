@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+
+    <div class="dashboard">
+        <header class="header">
+            <div>
+                <h3>
+                    Analytics
+                    <p>Data-driven dashboard</p>
+                </h3>
+            </div>
+
+            <button id="refreshBtn">
+                🔄️
+            </button>
+        </header>
+
+        <section id="kpiContainer" class="kpi-grid">
+        </section>
+
+        <section id="chartContainer" class="chart-grid"></section>
+
+    </div>
+
+    <script src="dashboard.js"></script>
+
+</body>
+</html>
